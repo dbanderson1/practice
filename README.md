@@ -1,4 +1,2 @@
-# Practice
-Practice Repository
-
+# Practice Repository
 This practice repository will be used as I learn the coding language R and develop my skills using RStudio. Some of the projects contained within are part of my coursework for Auburn University. Specifically I am taking "Principles and techniques of reproducible science" taught by Dr. Zachary Noel @noelzach. Other projects may be related to my Introduction to R course on Coddy.
