@@ -6,7 +6,6 @@ Git, and reproducible workflows.
 ## Contents
 
 - `coddy_challenges.R` – practice coding challenges
-- `anthro.csv` – example anthropometric dataset
 
 ## Project Structure
 
