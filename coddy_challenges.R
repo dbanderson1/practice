@@ -81,5 +81,30 @@ print(can_relax)
 print(should_go_out)
 print(productive_day)
 
-# Test Changes
-# test
+#### Operators Part 2 - Simple Logic ####
+# Given variables - DO NOT MODIFY
+purchase_amount <- 150
+years_as_customer <- 3
+has_loyalty_card <- TRUE
+items_bought <- 7
+is_holiday_season <- FALSE
+
+# TODO: Write your code below
+# Create the following variables using comparison and logical operators:
+# 1. big_spender - TRUE if purchase_amount >= 100 AND has_loyalty_card
+big_spender <- purchase_amount >= 100 && has_loyalty_card
+# 2. loyal_customer - TRUE if years_as_customer >= 5 OR has_loyalty_card
+loyal_customer <- years_as_customer >= 5 || has_loyalty_card
+# 3. qualifies_for_gift - TRUE if items_bought > 5 AND purchase_amount > 100 AND NOT is_holiday_season
+qualifies_for_gift <- items_bought > 5 && purchase_amount > 100 && !is_holiday_season
+# 4. gets_bonus_points - TRUE if purchase_amount >= 100 AND years_as_customer >= 2 AND has_loyalty_card
+gets_bonus_points <- purchase_amount >= 100 && years_as_customer >= 2 && has_loyalty_card
+# 5. special_reward - TRUE if (purchase_amount > 200) OR (years_as_customer >= 5 AND has_loyalty_card) OR (items_bought >= 10)
+special_reward <- purchase_amount > 200 || (years_as_customer >= 5 && has_loyalty_card) || items_bought >= 10
+
+# Output the results
+print(big_spender)
+print(loyal_customer)
+print(qualifies_for_gift)
+print(gets_bonus_points)
+print(special_reward)
