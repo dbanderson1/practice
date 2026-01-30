@@ -108,3 +108,64 @@ print(loyal_customer)
 print(qualifies_for_gift)
 print(gets_bonus_points)
 print(special_reward)
+
+#### Operators Part 2 - Vectorized Logic Part 1 ####
+
+a <- c(FALSE, TRUE, TRUE, FALSE)
+b <- c(TRUE, TRUE, FALSE, FALSE)
+a | b
+
+data <- c(15, 25, 45, 35)
+data < 20 | data > 40
+
+# Provided vectors
+temperatures <- c(18, 25, 32, 15, 28, 35, 22)
+humidity <- c(45, 80, 60, 30, 75, 85, 50)
+
+# TODO: Write your code below
+# 1. Create comfortable_temp: TRUE when temp >= 20 AND temp <= 30
+comfortable_temp <- temperatures >= 20 & temperatures <= 30
+# 2. Create high_humidity: TRUE when humidity > 70
+high_humidity <- humidity >= 70
+# 3. Create pleasant_day: TRUE when temp is 20-30 AND humidity <= 60
+pleasant_day <- (temperatures > 20 & temperatures < 30) & humidity <= 60
+# 4. Create extreme_weather: TRUE when temp > 30 OR humidity > 80
+extreme_weather <- temperatures > 30 | humidity > 80
+# 5. Create stay_inside: TRUE when temp < 18 OR (temp > 30 AND humidity > 70)
+stay_inside <- temperatures < 18 | (temperatures > 30 & humidity > 70)
+
+# Print the results
+print(comfortable_temp)
+print(high_humidity)
+print(pleasant_day)
+print(extreme_weather)
+print(stay_inside)
+
+#Given 
+scores <- c(85, 60, 72, 90)
+#which finds scores NOT above 75?
+!(scores > 75)
+
+#### Operators Part 2 - Vectorized Logic Part 2 ####
+# Given vectors
+scores <- c(45, 72, 88, 55, 91, 38, 67)
+attended <- c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE)
+submitted_homework <- c(TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE)
+
+# TODO: Write your code below
+# 1. Create 'failed' - TRUE for scores NOT >= 60
+failed <- !(scores >=60)
+# 2. Create 'absent' - opposite of attended
+absent <- !attended
+# 3. Create 'at_risk' - NOT attended OR NOT submitted homework
+at_risk <- !attended | !submitted_homework
+# 4. Create 'passing_but_absent' - score >= 60 AND NOT attended
+passing_but_absent <- scores >= 60 & absent
+# 5. Create 'needs_support' - (score < 50) OR (NOT attended AND NOT submitted homework)
+needs_support <- scores < 50 | (absent & !submitted_homework)
+# Print the results
+print(failed)
+print(absent)
+print(at_risk)
+print(passing_but_absent)
+print(needs_support)
