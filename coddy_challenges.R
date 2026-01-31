@@ -169,3 +169,34 @@ print(absent)
 print(at_risk)
 print(passing_but_absent)
 print(needs_support)
+#### Decision Making - If Statement ####
+# Variables provided
+balance <- 250
+withdrawal_amount <- 100
+is_account_active <- TRUE
+
+# TODO: Write your code below
+# Use an if statement to check if:
+# 1. The account is active
+# 2. The balance is greater than or equal to the withdrawal amount
+# If both conditions are TRUE, print "Withdrawal approved"
+if (is_account_active && balance >= withdrawal_amount) {
+  print("Withdrawal approved")
+}
+
+if (is_account_active == TRUE && balance >= withdrawal_amount) {
+  print("Withdrawal approved")
+}
+
+#### Decision Making - If - Else Statement ####
+# Variables provided
+age <- 16
+required_age <- 18
+
+# TODO: Write your if-else statement below to check if age >= required_age
+# Print "Access granted" if TRUE, "Access denied" if FALSE
+if (age >= required_age) {
+  print("Access granted")
+} else {
+  print("Access denied")
+}
