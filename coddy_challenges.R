@@ -200,3 +200,15 @@ if (age >= required_age) {
 } else {
   print("Access denied")
 }
+
+# Variables are already defined
+a <- 20
+b <- 4
+operator <- "*"
+
+# TODO: Write your code below
+# Use if-else statements to check the operator and perform the calculation
+# Remember to use print() for your output
+if (operator == "*") {
+  print(a * b)
+}
