@@ -212,3 +212,53 @@ operator <- "*"
 if (operator == "*") {
   print(a * b)
 }
+
+score <- 85
+
+if (score >= 90) {
+  print("Grade: A")
+} else if (score >= 80) {
+  print("Grade: B")
+} else {
+  print("Grade: C or below")
+}
+
+#alternatively 
+
+score <- 85
+
+if (score >= 90) {
+  print("Grade: A")
+} else {
+  if (score >= 80) {
+    print("Grade: B")
+  } else {
+    print("Grade: C or below")
+  }
+}
+
+# Variable provided
+age <- 25
+
+# TODO: Write your code below
+# Use nested if-else or else if statements to determine the ticket price
+# based on the age rules provided
+# If age is less than 5, print "Free"
+# If age is between 5 and 12 (inclusive), print "$5"
+# If age is between 13 and 17 (inclusive), print "$8"
+# If age is between 18 and 64 (inclusive), print "$12"
+# If age is 65 or older, print "$7"
+
+if (age < 5) {
+  print("Free")
+} else if (age >= 5 & age <= 12) {
+  print ("$5")
+} else if (age > 12 & age <= 17) {
+  print ("$8")
+} else if (age > 17 & age <= 64) {
+  print ("$12")
+} else {
+  print("$7")
+}
+
+#### Basic IO ####
