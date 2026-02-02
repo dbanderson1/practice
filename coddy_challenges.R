@@ -261,4 +261,116 @@ if (age < 5) {
   print("$7")
 }
 
-#### Basic IO ####
+#### Basic IO - cat() and print() ####
+## print() Function ##
+# TODO: Write your code below
+# Use print() to display each value on its own line
+
+# 1. Print the character string "R Programming"
+print ("R Programming")
+# 2. Print the numeric value 3.14
+print (3.14)
+# 3. Print the logical value FALSE
+print (25 < 7)
+# 4. Print the result of the expression 25 - 7
+print (25-7)
+# 5. Print the result of the comparison 100 >= 50
+print (100 >= 50)
+
+## Cat() function ##
+# Variables are already defined for you
+product <- "Laptop"
+price <- 999
+in_stock <- TRUE
+
+# TODO: Use cat() to display the formatted message with each piece of information on its own line
+# Remember to use \n for line breaks
+# "\n" MUST be inside quotations
+cat("Product:", product, "\n")
+cat("Price:", price, "\n")
+cat("Available:", in_stock)
+
+# Book information variables
+title <- "The R Guide"
+pages <- 350
+price <- 29.99
+
+# TODO: Use cat() to display the book information
+# Each piece of information should be on its own line
+# Calculate the sale price (20% off) directly in the cat() call
+cat("Book:", title, "\n")
+cat("Pages:", pages, "\n")
+cat("Original Price:", price, "\n")
+cat("Sale Price:", price * .8, "\n")
+
+## paste0()function ##
+paste0(x, y)
+
+
+
+#### paste() and paste0() ####
+# paste0() joins pieces of text together with NO spaces added
+# Think of paste0() as "glue things together exactly as written"
+## Basic example
+
+name <- "Emma"
+
+# paste() adds a space between elements by default
+paste("Hello", name)
+# Output: "Hello Emma"
+
+# paste0() does NOT add a space
+paste0("Hello", name)
+# Output: "HelloEmma"
+
+# To include a space with paste0(), you must add it explicitly
+paste0("Hello ", name)
+# Output: "Hello Emma"
+
+## Example 2 ##
+
+city <- "Paris"
+
+# cat() automatically inserts a space between arguments
+cat(city, "!\n")
+# Output: Paris !
+
+## paste0() ##
+
+# paste0() is a base R function that concatenates (joins) values together into a single character string with no separator.
+paste0(city, "!")
+# Output: "Paris!"
+
+## Common beginner-friendly uses of paste0()
+# Add punctuation
+paste0("Score: ", 95, "%")
+# Output: "Score: 95%"
+
+# Build filenames
+paste0("subject_", 12, ".csv")
+# Output: "subject_12.csv"
+
+# Combine words without spaces
+paste0("BMI", "_", "category")
+# Output: "BMI_category"
+
+## Summary ##
+
+# paste()  -> joins text WITH spaces
+# paste0() -> joins text WITHOUT spaces
+# Use paste0() when formatting must be exact
+
+#### readline() function ####
+# Read input
+con <- file("stdin", "r")
+name <- suppressWarnings(readLines(con, n = 1))
+city <- suppressWarnings(readLines(con, n = 1))
+
+# TODO: Write your code below to display the greeting message
+# Use cat() to output: Welcome, [name] from [city]!
+# Don't forget the newline character \n at the end
+cat("Welcome,", name, "from", paste0(city, "!"), "\n")
+
+
+
+
