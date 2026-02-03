@@ -370,7 +370,55 @@ city <- suppressWarnings(readLines(con, n = 1))
 # Use cat() to output: Welcome, [name] from [city]!
 # Don't forget the newline character \n at the end
 cat("Welcome,", name, "from", paste0(city, "!"), "\n")
+#### Conversions - as.numeric() & as.character() ####
+## as.numeric()
+input <- "42"
+number <- as.numeric(input)
 
+cat(number + 8, "\n")  # Output: 50
 
+age_text <- readline()
+age <- as.numeric(age_text)
 
+cat("In 10 years, you will be", age + 10, "\n")
 
+## as.character()
+number <- 100
+text <- as.character(number)
+
+cat("The value is:", text, "\n")
+
+## Examples
+# Read input
+con <- file("stdin", "r")
+price_str <- suppressWarnings(readLines(con, n = 1))
+quantity_str <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# TODO: Write your code below
+# 1. Convert price_str and quantity_str to numeric values using as.numeric()
+# 2. Calculate the total cost (price * quantity)
+# 3. Display the result using cat() with the format "Total: [result]\n"
+total_cost <- as.numeric(price_str) * as.numeric(quantity_str)
+cat ("Total:", total_cost,"\n")
+
+# Read input
+con <- file("stdin", "r")
+birth_year <- suppressWarnings(readLines(con, n = 1))
+current_year <- suppressWarnings(readLines(con, n = 1))
+# TODO: Convert inputs to numeric and calculate the age
+age <- as.numeric(current_year) - as.numeric(birth_year)
+
+# Output the result in the format: "You are [age] years old"
+cat("You are", age, "years old\n")
+
+# Read input
+input_string <- "TRUE"
+
+# TODO: Write your code below
+# 1. Convert the input string to a logical value
+# 2. Apply the NOT operator (!) to get the opposite value
+result <- !as.logical(input_string)
+
+# Output the result
+cat("Opposite: ", result, "\n", sep = "")
