@@ -428,9 +428,6 @@ cat("Opposite: ", result, "\n", sep = "")
 # TODO: Write your code below
 # Use cat() to display the welcome message
 # Remember to use \n for new lines
-# TODO: Write your code below
-# Use cat() to display the welcome message
-# Remember to use \n for new lines
 cat("Welcome to the Bill Split Calculator!\nLet's split your bill fairly.\n")
 
 # Read user inputs
@@ -441,11 +438,16 @@ people <- as.numeric(suppressWarnings(readLines(con, n = 1)))
 close(con)
 
 # Display confirmation message
-cat("Bill: $", bill, "\n", sep = "")
+cat("Bill: $", sprintf("%.2f", bill), "\n", sep = "")
 cat("Tip: ", tip_percent, "%\n", sep = "")
 cat("People: ", people, "\n", sep = "")
-cat("Tip amount: $", (bill * tip_percent / 100), "\n", sep = "")
-cat("Total with tip: $", bill + (bill * tip_percent / 100), "\n", sep = "")
+cat("Tip amount: $", sprintf("%.2f", (bill * tip_percent / 100)), "\n", sep = "")
+cat("Total with tip: $", sprintf("%.2f", (bill + (bill * tip_percent / 100))), "\n", sep = "")
+cat("Each person pays: $", sprintf("%.2f", ((bill + (bill * tip_percent / 100))/people)), "\n", sep = "")
+
+# this uses the sprintf() function
+value <- 3.555
+sprintf("%.2f", value) #formats a number to 2 decimal places.
 
 #### readline() vs stdin for inputs ####
 
@@ -513,3 +515,9 @@ as.logical(s_clean) # TRUE
 
 # LOCAL / RSTUDIO: use readline()
 # AUTOGRADER: use con <- file("stdin","r") and readLines(con, n=1)
+
+#### sprint() function ####
+#Use sprintf() to format each monetary value.
+value <- 3.555
+sprintf("%.2f", value) #formats a number to 2 decimal places.
+
