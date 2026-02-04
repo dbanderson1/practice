@@ -422,3 +422,94 @@ result <- !as.logical(input_string)
 
 # Output the result
 cat("Opposite: ", result, "\n", sep = "")
+
+#### Bill Split Calculator ####
+
+# TODO: Write your code below
+# Use cat() to display the welcome message
+# Remember to use \n for new lines
+# TODO: Write your code below
+# Use cat() to display the welcome message
+# Remember to use \n for new lines
+cat("Welcome to the Bill Split Calculator!\nLet's split your bill fairly.\n")
+
+# Read user inputs
+con <- file("stdin", "r")
+bill <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+tip_percent <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+people <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+close(con)
+
+# Display confirmation message
+cat("Bill: $", bill, "\n", sep = "")
+cat("Tip: ", tip_percent, "%\n", sep = "")
+cat("People: ", people, "\n", sep = "")
+cat("Tip amount: $", (bill * tip_percent / 100), "\n", sep = "")
+cat("Total with tip: $", bill + (bill * tip_percent / 100), "\n", sep = "")
+
+#### readline() vs stdin for inputs ####
+
+# WHY THIS HAPPENS
+# - In normal R/RStudio, readline() works for interactive typing.
+# - In many autograders, input is "piped" into the program (stdin),
+#   so readline() may return "" (empty string) instead of the test value.
+# - Converting "" to numeric/logical often produces NA:
+#     as.numeric("")  -> NA
+#     as.logical("")  -> NA
+# - That leads to outputs like: $NA, NA%, NA, etc.
+#
+# RULE OF THUMB
+# - If your Coddy/autograder solution prints NA even though your logic is correct,
+#   switch from readline() to reading from stdin using file("stdin","r") + readLines().
+
+## INTERACTIVE INPUT (works locally, may fail in autograders)
+
+# Example: interactive input (user types into console)
+x_chr <- readline()             # user types: 100
+x_num <- as.numeric(x_chr)      # 100
+
+
+# STDIN INPUT (works in autograders; reads piped test cases)
+# Open a connection to standard input (stdin) in read mode ("r")
+con <- file("stdin", "r")
+
+# Read one line at a time from the input stream
+bill <- as.numeric(readLines(con, n = 1))
+tip_percent <- as.numeric(readLines(con, n = 1))
+people <- as.numeric(readLines(con, n = 1))
+
+# Close the connection (good practice)
+close(con)
+
+
+# WHY suppressWarnings() IS SOMETIMES USED
+# Autograders sometimes fail or clutter output if warnings print.
+# suppressWarnings() hides warnings but does not change results.
+con <- file("stdin", "r")
+bill <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+tip_percent <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+people <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+close(con)
+
+
+## QUICK DIAGNOSTIC SNIPPETS
+
+# If this prints NA in an autograder, your input is probably blank or messy:
+# (You can temporarily print debug lines, but remove them for final submission)
+# cat("DEBUG raw input = [", x_chr, "]\n", sep = "")
+
+# Demonstrate strict conversion behavior (why NA happens)
+as.numeric("")      # NA
+as.logical("TRUE")  # TRUE
+as.logical("true")  # NA (case-sensitive)
+as.logical(" TRUE") # NA (leading space)
+
+# If you must clean interactive strings (not always needed for stdin lines):
+s <- "  true "
+s_clean <- toupper(trimws(s))
+as.logical(s_clean) # TRUE
+
+## TL;DR CHEAT NOTE
+
+# LOCAL / RSTUDIO: use readline()
+# AUTOGRADER: use con <- file("stdin","r") and readLines(con, n=1)
