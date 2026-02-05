@@ -521,3 +521,100 @@ as.logical(s_clean) # TRUE
 value <- 3.555
 sprintf("%.2f", value) #formats a number to 2 decimal places.
 
+#### Loops ####
+## Basic Loops ##
+# A for loop iterates through a sequence of values, running the code inside the loop once for each value:
+for (i in 1:3) {
+  print(i)
+}
+
+# You can use any variable name and perform any operations inside the loop:
+for (num in 1:4) {
+  print(num * 2)
+}
+
+# Read input
+con <- file("stdin", "r")
+n <- as.integer(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Write your code below
+# Use a for loop to print the square of each number from 1 to n
+for (i in 1:n) {
+  print(i * i)
+}
+
+## While Loop ##
+
+count <- 1
+while (count <= 3) {
+  print(count)
+  count <- count + 1
+}
+
+
+
+total <- 0
+num <- 1
+while (num <= 5) {
+  total <- total + num
+  num <- num + 1
+}
+print(total)
+
+# Read input
+con <- file("stdin", "r")
+n <- as.integer(suppressWarnings(readLines(con, n = 1)))
+
+# Initialize variables
+total <- 0
+counter <- 1
+
+# TODO: Write your while loop below to calculate the sum from 1 to n
+total <- 0
+num <- 1
+while (num <= n) {
+  total <- total + num
+  num <- num + 1
+}
+
+# Print the result
+print(total)
+
+#### Break Loops ####
+# Sometimes you need to exit a loop early, before it finishes all its iterations.
+# The break statement lets you immediately stop a loop when a specific condition is met.
+for (i in 1:10) {
+  if (i == 5) {
+    break
+  }
+  print(i)
+}
+
+# or 
+
+for (n in 1:100) {
+  if (n > 15) {
+    break
+  }
+  print(n)
+}
+
+
+# Read input
+con <- file("stdin", "r")
+limit <- as.integer(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Write your code below
+# Use a for loop from 1 to limit
+# Print each number before checking the condition
+# Break when you find a number divisible by both 3 and 7
+# Hint: Use %% operator to check divisibility
+for ( n in 1:limit) {
+  print(n)
+  if (n %% 3 == 0 && n %% 7 == 0) {
+    break
+  }
+}
+
+# Print "Loop ended" after the loop
+print("Loop ended")
