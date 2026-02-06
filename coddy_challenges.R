@@ -580,7 +580,7 @@ while (num <= n) {
 # Print the result
 print(total)
 
-#### Break Loops ####
+#### Break Loops & Next ####
 # Sometimes you need to exit a loop early, before it finishes all its iterations.
 # The break statement lets you immediately stop a loop when a specific condition is met.
 for (i in 1:10) {
@@ -618,3 +618,87 @@ for ( n in 1:limit) {
 
 # Print "Loop ended" after the loop
 print("Loop ended")
+
+# While break exits a loop entirely, sometimes you only want to skip the current iteration and continue with the next one.
+# The next statement does exactly that.
+for (i in 1:5) {
+  if (i == 3) {
+    next
+  }
+  print(i)
+}
+# this loops prints 1-5 but skips 3
+
+for (num in 1:6) {
+  if (num %% 2 != 0) {
+    next
+  }
+  print(num)
+}
+# this loop prints even numbers
+
+# Read input
+con <- file("stdin", "r")
+n <- as.integer(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Write your code below
+# Use a for loop to iterate from 1 to n
+# Use the next statement to skip numbers divisible by 4
+# Print all other numbers using print()
+for (num in 1:n) {
+  if (num %% 4 == 0) {
+    next
+  }
+  print(num)
+}
+
+#### DATA STRUCTURES ####
+
+# Create the temperatures vector
+temperatures <- c(22.5, 25.3, 18.9, 20.1, 23.7)
+
+# TODO: Write your code below to perform the required operations
+# Placeholder for count of temperatures
+temp_count <- length(temperatures)
+
+# Placeholder for average temperature
+average_temp <- sum(temperatures)/temp_count
+
+# Placeholder for highest temperature
+highest_temp <- max(temperatures)
+
+# Placeholder for lowest temperature
+lowest_temp <- min(temperatures)
+
+# Placeholder for temperature range
+temp_range <- highest_temp - lowest_temp
+
+
+
+# Print the results
+cat("Average:", sprintf("%.1f", average_temp), "\n")
+cat("Highest:", highest_temp, "\n")
+cat("Lowest:", lowest_temp, "\n")
+cat("Range:", sprintf("%.1f", temp_range), "\n")
+cat("Count:", temp_count, "\n")
+
+
+# Read input (not needed for this challenge)
+
+# TODO: Write your code below
+is_weekend <- c(TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE)
+weather <- factor(c("Sunny","Rainy","Cloudy","Sunny","Rainy"))
+
+# Print the class of is_weekend
+print(class(is_weekend))
+
+# Print the class of weather
+print(class(weather))
+
+# Print the number of TRUE values in is_weekend
+print(sum(is_weekend))
+
+# Print the levels of weather
+print(levels(weather))
+
+# Note: Make sure your output matches the expected format exactly
