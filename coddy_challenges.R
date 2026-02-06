@@ -653,7 +653,7 @@ for (num in 1:n) {
 }
 
 #### DATA STRUCTURES ####
-
+## challenge 1
 # Create the temperatures vector
 temperatures <- c(22.5, 25.3, 18.9, 20.1, 23.7)
 
@@ -673,8 +673,6 @@ lowest_temp <- min(temperatures)
 # Placeholder for temperature range
 temp_range <- highest_temp - lowest_temp
 
-
-
 # Print the results
 cat("Average:", sprintf("%.1f", average_temp), "\n")
 cat("Highest:", highest_temp, "\n")
@@ -682,7 +680,7 @@ cat("Lowest:", lowest_temp, "\n")
 cat("Range:", sprintf("%.1f", temp_range), "\n")
 cat("Count:", temp_count, "\n")
 
-
+## Challenge 2
 # Read input (not needed for this challenge)
 
 # TODO: Write your code below
@@ -701,4 +699,24 @@ print(sum(is_weekend))
 # Print the levels of weather
 print(levels(weather))
 
+# Challenge 3
 # Note: Make sure your output matches the expected format exactly
+
+# Create the initial mixed_list
+mixed_list <- list(42, "R programming", TRUE, c(1, 2, 3))
+
+# TODO: Write your code below to complete the tasks
+
+# Print the class of the third element
+print(class(mixed_list[[3]]))
+
+# Print the second element of the vector in the fourth element
+print(mixed_list[[4]][2])
+
+# TODO: Add a new element to the list
+mixed_list[[5]] <- c("apple", "cherry", "banana")
+# TODO: Print the length of the updated list
+print(length(mixed_list))
+
+# TODO: Print the number of elements in the newly added character vector
+print(length(mixed_list[[5]]))
