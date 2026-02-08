@@ -652,7 +652,7 @@ for (num in 1:n) {
   print(num)
 }
 
-#### DATA STRUCTURES ####
+#### Data Structures - Vectors and Factors ####
 ## challenge 1
 # Create the temperatures vector
 temperatures <- c(22.5, 25.3, 18.9, 20.1, 23.7)
@@ -720,3 +720,66 @@ print(length(mixed_list))
 
 # TODO: Print the number of elements in the newly added character vector
 print(length(mixed_list[[5]]))
+
+#### Sequence Generation (seq, :) ####
+
+# The colon operator creates a sequence of consecutive integers:
+print(1:5)
+print(10:6)
+
+# The seq() function gives you more flexibility.
+# You can specify a step size using the by argument:
+print(seq(2, 10, by = 2))
+print(seq(1, 10, length.out = 4))
+
+# Read input
+con <- file("stdin", "r")
+start <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+end <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+step <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Write your code below
+# 1. Use seq() to generate a sequence from start to end with the given step
+# 2. Use a for loop to iterate through the sequence
+# 3. Print the square of each number using print()
+values <- seq(start, end, by = step)
+for (x in values) {
+  print(x^2)
+}
+
+#### Nested Loops ####
+# You can place a loop inside another loop to create a nested loop.
+# The inner loop runs completely for each iteration of the outer loop
+# making this useful when working with combinations or grid-like patterns
+
+# Example: 
+for (i in 1:3) {
+  for (j in 1:2) {
+    cat("i =", i, ", j =", j, "\n")
+  }
+}
+
+# practical solution for making a multiplication pattern
+for (row in 1:3) {
+  for (col in 1:3) {
+    cat(row * col, " ")
+  }
+  cat("\n")
+}
+
+
+# Read input
+con <- file("stdin", "r")
+rows <- as.integer(suppressWarnings(readLines(con, n = 1)))
+cols <- as.integer(suppressWarnings(readLines(con, n = 1)))
+close(con)
+
+# TODO: Write your code below
+# Use nested loops to print a rectangle where each cell contains row + column
+# Use cat() to print values separated by spaces, with a newline after each row
+for (row in 1:rows) {
+  for (col in 1:cols) {
+    cat(row + col, " ")
+  }
+  cat("\n")
+}
