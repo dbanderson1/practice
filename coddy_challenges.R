@@ -783,3 +783,32 @@ for (row in 1:rows) {
   }
   cat("\n")
 }
+
+
+#### Challenge ####
+# Read input from stdin
+con <- file("stdin", "r")
+
+# Initialize counters
+positive_count <- 0
+negative_count <- 0
+
+# Repeat loop
+repeat {
+  input <- suppressWarnings(readLines(con, n = 1))
+  if (input == "end") {
+    break
+  }
+  value <- as.numeric(input)
+  if (value > 0) {
+    positive_count <- positive_count + 1
+  } else if (value < 0) {
+    negative_count <- negative_count + 1
+  }
+}
+close(con)
+
+# Output the results
+cat("Positive:", positive_count, "\n")
+cat("Negative:", negative_count, "\n")
+
