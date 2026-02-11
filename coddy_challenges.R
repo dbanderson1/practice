@@ -812,3 +812,48 @@ close(con)
 cat("Positive:", positive_count, "\n")
 cat("Negative:", negative_count, "\n")
 
+
+#### Declare a function 
+# But what if you need to perform the same task multiple times in different places?
+# Instead of copying and pasting code, you can create a function - a reusable block of code that you can call whenever you need it.
+# In R, you declare a function using the function keyword:
+
+greet <- function() {
+  print("Hello!")
+}
+
+greet()
+
+# Arguments (also called parameters) let you pass values into a function
+# Making it flexible and reusable for different situations.
+
+# character example
+greet <- function(name) {
+  print(paste("Hello,", name))
+}
+
+greet("Alice")
+greet("Bob")
+
+# numeric example
+add <- function(a, b) {
+  print(a + b)
+}
+
+add(5, 3)
+add(10, 20)
+
+# Read input
+con <- file("stdin", "r")
+length <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+width <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+close(con)
+
+# TODO: Create a function called calculate_area that takes length and width
+# and prints the area (length * width)
+calculate_area <- function(length, width) {
+  print (length * width)
+}
+
+# Call your function with the input values
+calculate_area(length, width)
