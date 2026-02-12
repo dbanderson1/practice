@@ -785,7 +785,7 @@ for (row in 1:rows) {
 }
 
 
-#### Challenge ####
+#### Challenge - Nested Loops with Break Function ####
 # Read input from stdin
 con <- file("stdin", "r")
 
@@ -813,7 +813,7 @@ cat("Positive:", positive_count, "\n")
 cat("Negative:", negative_count, "\n")
 
 
-#### Declare a function 
+#### Declare a function ####
 # But what if you need to perform the same task multiple times in different places?
 # Instead of copying and pasting code, you can create a function - a reusable block of code that you can call whenever you need it.
 # In R, you declare a function using the function keyword:
@@ -857,3 +857,77 @@ calculate_area <- function(length, width) {
 
 # Call your function with the input values
 calculate_area(length, width)
+
+#### Return Function ####
+# Use the return() function to send a value back from your function:
+add <- function(a, b) {
+return(a + b)
+}
+
+result <- add(5, 3)
+print(result)
+
+# Instead of printing inside the function, we return the sum. 
+# The returned value can then be stored in a variable, used in calculations, or passed to other functions.
+
+double <- function(x) {
+  return(x * 2)
+}
+
+print(double(5) + double(3))
+
+# Read input
+con <- file("stdin", "r")
+base <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+exponent <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Create a function called calculate_power that takes base and exponent
+# and returns base raised to the power of exponent using the ^ operator
+calculate_power <- function(a, b) {
+  return(a ^ b)
+}
+
+# TODO: Call your function with the input values and store the result in 'result'
+
+
+# Output the result
+result <- calculate_power(base, exponent)
+print(result)
+
+#### Challenges, Sigma Function and Valid Password ####
+# Read input
+con <- file("stdin", "r")
+n <- suppressWarnings(readLines(con, n = 1))
+n <- as.numeric(n)
+
+# TODO: Create a function called 'sigma' that takes one argument 'n'
+# and returns the sum of all integers from 1 to n
+sigma <- function(a) {
+  sum(1:a)
+}
+
+# Call the function and print the result
+print(sigma(n))
+
+# Read input
+con <- file("stdin", "r")
+password <- suppressWarnings(readLines(con, n = 1))
+
+# TODO: Create the is_valid_password function below
+# The function should:
+# - Take a password string as argument
+# - Check if length is at least 8 characters
+# - Check if length is no more than 20 characters
+# - Return TRUE if both conditions are met, FALSE otherwise
+# Hint: Use nchar() to get the string length
+is_valid_password <- function(a) {
+  if (nchar(a) >= 8 && nchar(a) <= 20)
+    return(TRUE)
+  else {
+    return(FALSE)
+  }
+}
+
+# Call the function and print the result
+print(is_valid_password(password))
+
