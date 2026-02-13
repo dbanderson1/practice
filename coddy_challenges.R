@@ -931,3 +931,56 @@ is_valid_password <- function(a) {
 # Call the function and print the result
 print(is_valid_password(password))
 
+#### Function Default Parameter ####
+# Sometimes you want a function to have a "standard" behavior that can be customized when needed.
+# Default parameter values let you define what a parameter should be if the caller doesn't provide it.
+# You set a default value by using = in the function definition:
+
+greet <- function(name = "Guest") {
+  print(paste("Hello,", name))
+}
+
+greet()
+greet("Alice")
+
+# When called without an argument, the function uses "Guest" as the default.
+# When you provide a value, it overrides the default.
+
+# You can mix required and optional parameters.
+# Parameters with defaults should come after those without:
+
+calculate_total <- function(price, tax_rate = 0.1) {
+  return(price + (price * tax_rate))
+}
+
+print(calculate_total(100))
+print(calculate_total(100, 0.2))
+
+# Here, price is required while tax_rate defaults to 10%.
+# This makes your functions flexible - simple to use in common cases, but customizable when needed.
+
+## Challenge
+
+# Read input
+con <- file("stdin", "r")
+weight <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+rate_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# TODO: Write your code below
+# 1. Define the calculate_shipping function with weight (required) and rate (optional, default = 5)
+# 2. Check if rate_input is "default" or a number
+# 3. Call the function appropriately and print the result
+# Define the function
+calculate_shipping <- function(weight, rate = 5) {
+  weight * rate
+}
+
+# Decide how to call the function
+if (rate_input == "default") {
+  result <- calculate_shipping(weight)
+} else {
+  result <- calculate_shipping(weight, as.numeric(rate_input))
+}
+
+print(result)
