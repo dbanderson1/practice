@@ -984,3 +984,38 @@ if (rate_input == "default") {
 }
 
 print(result)
+
+#### FizzBuzz Challenge ####
+
+# In the previous lesson, you created a check_divisible function.
+# Now, build the core fizzbuzz function that determines what to output for a single number.
+# In the previous lesson, you created the fizzbuzz function that handles a single number.
+# Now, add a loop to process a range of numbers from 1 to a given limit.
+# In the previous lesson, you created a FizzBuzz program that loops through numbers using the default divisors 3 and 5.
+# Now, add the twist by making the divisors customizable through default parameters.
+
+## START
+# Read input
+con <- file("stdin", "r")
+number <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+fizz_divisor <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+buzz_divisor <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Create a function called check_divisible that takes two arguments:
+# number and divisor. Return TRUE if number is divisible by divisor, FALSE otherwise.
+fizzbuzz <- function(a) {
+  if (a %% fizz_divisor == 0 && a %% buzz_divisor == 0)
+    return("FizzBuzz")
+  if (a %% fizz_divisor == 0) 
+    return("Fizz")
+  if (a %% buzz_divisor == 0) 
+    return("Buzz")
+  else
+    return(as.character(a))
+}
+
+# Call your function and print the result
+for (number in 1:number) {
+  print(fizzbuzz(number))
+}
+## END
