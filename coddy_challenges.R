@@ -1200,4 +1200,22 @@ print(sum(discounted_price))
 print(mean(discounted_price))
 #END
 
+#START
+# Read input
+con <- file("stdin", "r")
+input <- suppressWarnings(readLines(con, n = 1))
+
+# Parse the comma-separated numbers into a vector
+numbers <- as.numeric(strsplit(input, ",")[[1]])
+
+# TODO: Write your code below
+# 1. Reverse the vector
+## IMPORTANT rev() is function that you can use to reverse vectors
+reversed <- rev(numbers)
+# 2. Print the reversed vector
+print(reversed)
+# 3. Calculate and print the sum of first and last elements of the reversed vector
+sum_fl <- reversed[1] + reversed[length(reversed)]
+print(sum_fl)
+#END
 
