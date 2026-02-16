@@ -1019,3 +1019,185 @@ for (number in 1:number) {
   print(fizzbuzz(number))
 }
 ## END
+#### Vectors ####
+
+# A vector is R's fundamental data structure for storing multiple values of the same type.
+# You create vectors using the c() function, where "c" stands for "combine":
+
+temperatures <- c(72, 75, 68, 80, 77)
+print(temperatures)
+
+# Vectors can hold any data type you've learned - numeric, character, or logical:
+
+names <- c("Alice", "Bob", "Charlie")
+passed <- c(TRUE, FALSE, TRUE)
+
+print(names)
+print(passed)
+
+# One important rule: all elements in a vector must be the same type. If you mix types, 
+# R will automatically convert them to a common type. You can check a vector's length using length():
+
+scores <- c(85, 92, 78, 95)
+print(length(scores))
+
+#START
+# TODO: Write your code below
+
+# 1. Create a numeric vector called 'prices' with values: 19.99, 29.99, 9.99, 49.99
+price <- c(19.99, 29.99, 9.99, 49.99)
+
+# 2. Create a character vector called 'colors' with values: "red", "green", "blue"
+colors <- c("red", "green", "blue")
+
+# 3. Create a logical vector called 'in_stock' with values: TRUE, FALSE, TRUE, TRUE, FALSE
+in_stock <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+# Print each vector followed by its length using length()
+print(price)
+print(length(price))
+print(colors)
+print(length(colors))
+print(in_stock)
+print(length(in_stock))
+#END
+
+#In R, you access vector elements using square brackets [] with the position number
+# of the element you want.
+
+fruits <- c("apple", "banana", "cherry", "date")
+print(fruits[1])
+print(fruits[3])
+
+# You can also access multiple elements at once by providing a vector of positions:
+
+scores <- c(85, 92, 78, 95, 88)
+print(scores[c(1, 3, 5)])
+
+# To access the last element of a vector, combine length() with indexing:
+
+numbers <- c(10, 20, 30, 40)
+print(numbers[length(numbers)])
+
+#START
+# Vector of temperatures
+temperatures <- c(72, 68, 75, 80, 65, 78, 71)
+
+# TODO: Write your code below
+# 1. Print the first temperature
+print(temperatures[1])
+# 2. Print the fourth temperature
+print(temperatures[4])
+# 3. Print the last temperature (use length() to find it dynamically)
+print(temperatures[length(temperatures)])
+# 4. Print the 2nd, 4th, and 6th temperatures together
+print(temperatures[c(2, 4, 6)])
+#END
+
+# To modify a single element, use the assignment operator with the element's index:
+
+scores <- c(85, 92, 78, 95)
+scores[2] <- 88
+print(scores)
+
+# You can also modify multiple elements at once by providing a vector of positions:
+
+temperatures <- c(70, 72, 68, 75, 71)
+temperatures[c(1, 3)] <- c(69, 67)
+print(temperatures)
+
+# To add new elements to a vector, you can assign a value to a position beyond\
+# the current length, or use c() to combine vectors:
+
+colors <- c("red", "blue")
+colors[3] <- "green"
+colors <- c(colors, "yellow")
+print(colors)
+
+#START
+# Initial vector
+grades <- c(78, 85, 90, 72, 88)
+
+# TODO: Write your code below
+# 1. Change the second element to 92
+grades[2] <- 92
+# 2. Change the first and fourth elements to 80 and 75 respectively
+grades[c(1, 4)] <- c(80, 75)
+# 3. Add a new element 95 at position 6
+grades[6] <- 95
+# 4. Use c() to append the value 82 to the end of the vector
+grades <- c(grades, 82)
+
+# Print the final vector
+print(grades)
+#END
+
+# When you apply an arithmetic operator to a vector, R performs the operation on every element:
+
+prices <- c(10, 25, 15, 30)
+discounted <- prices * 0.9
+print(discounted)
+
+# You can also perform operations between two vectors of the same length. R pairs up corresponding elements:
+
+quantities <- c(2, 1, 4, 3)
+prices <- c(10, 25, 15, 30)
+totals <- quantities * prices
+print(totals)
+
+# R provides useful built-in functions for common vector calculations like sum(), mean(), min(), and max():
+
+scores <- c(85, 92, 78, 95, 88)
+print(sum(scores))
+print(mean(scores))
+print(min(scores))
+print(max(scores))
+
+#START
+# Given vectors
+hours_worked <- c(8, 7, 9, 6, 8)
+hourly_rate <- c(15, 20, 18, 22, 17)
+
+# TODO: Write your code below
+
+# 1. Calculate daily earnings (element-wise multiplication)
+daily_earnings <- hours_worked * hourly_rate
+print(daily_earnings)
+# 2. Apply 10% bonus to daily earnings
+bonus_rate <- daily_earnings * 1.1
+print(bonus_rate)
+# 3. Print total earnings for the week using sum()
+print(sum(bonus_rate))
+# 4. Print average daily earnings using mean()
+print(mean(bonus_rate))
+# 5. Print highest single-day earnings using max()
+print(max(bonus_rate))
+# 6. Print lowest single-day earnings using min()
+print(min(bonus_rate))
+#END
+
+#START
+# Read input
+con <- file("stdin", "r")
+prices_input <- suppressWarnings(readLines(con, n = 1))
+discount <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Convert inputs
+original_prices <- as.numeric(unlist(strsplit(prices_input, ",")))
+discount_percent <- as.numeric(discount)
+
+# TODO: Write your code below
+# 1. Change the third item to 125
+original_prices[3] <- 125
+# 2. Apply the discount to all prices
+discounted_price <- original_prices * ((100 - discount_percent)/100)
+# 3. Print the discounted prices vector
+print(discounted_price)
+# 4. Print the total using sum()
+print(sum(discounted_price))
+# 5. Print the average using mean()
+print(mean(discounted_price))
+#END
+
+
