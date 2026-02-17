@@ -1219,3 +1219,39 @@ sum_fl <- reversed[1] + reversed[length(reversed)]
 print(sum_fl)
 #END
 
+# You can create a named vector by providing names during creation:
+ages <- c(alice = 25, bob = 30, charlie = 28)
+print(ages)
+print(ages["bob"])
+
+# You can also add names to an existing vector using the names() function:
+scores <- c(85, 92, 78)
+names(scores) <- c("math", "science", "english")
+print(scores["math"])
+
+#START
+# Read input
+con <- file("stdin", "r")
+products_input <- suppressWarnings(readLines(con, n = 1))
+prices_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Parse the comma-separated inputs
+product_names <- strsplit(products_input, ",")[[1]]
+price_values <- strsplit(prices_input, ",")[[1]]
+
+
+# TODO: Write your code below
+# 1. Create a numeric vector from the prices
+prices <- as.numeric(price_values)
+# 2. Assign the product names to the vector using names()
+names(prices) <- c(product_names)
+# 3. Print the entire named vector
+print(prices)
+# 4. Print the price of the second product by accessing it using its name
+print(prices[product_names[2]])
+# 5. Print the price of the last product by accessing it using its name
+print(prices[product_names[length(product_names)]])
+#END
+
+#### Iterating Over Sequences ####
