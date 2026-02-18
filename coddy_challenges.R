@@ -1255,3 +1255,17 @@ print(prices[product_names[length(product_names)]])
 #END
 
 #### Iterating Over Sequences ####
+
+# The simplest way to loop through a vector is to iterate directly over its elements:
+fruits <- c("apple", "banana", "cherry")
+for (fruit in fruits) {
+  print(fruit)
+}
+
+# You can combine iteration with conditional logic to process elements selectively:
+numbers <- c(3, 8, 2, 10, 5)
+for (num in numbers) {
+  if (num > 5) {
+    print(num)
+  }
+}
