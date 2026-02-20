@@ -1269,3 +1269,31 @@ for (num in numbers) {
     print(num)
   }
 }
+
+# The seq_along() function returns a sequence from 1 to the length of the vector:
+fruits <- c("apple", "banana", "cherry")
+print(seq_along(fruits))
+
+# By looping over these indices, you can access both the position and the value:
+fruits <- c("apple", "banana", "cherry")
+for (i in seq_along(fruits)) {
+  cat(i, ":", fruits[i], "\n")
+}
+
+# START
+# Read input
+con <- file("stdin", "r")
+input_line <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Convert comma-separated string to numeric vector
+numbers <- as.numeric(strsplit(input_line, ",")[[1]])
+
+# TODO: Write your code below
+# Use seq_along() to loop through the vector
+# For each position, print the index, value, and running total
+# Use cat() with format: Position X: VALUE (Running total: TOTAL)\n
+for (i in seq_along(numbers)) {
+  cat("Position ", i, ": ", numbers[i], " (Running total: ", sum(numbers[1:i]),")\n", sep="")
+}
+# END
