@@ -1297,3 +1297,45 @@ for (i in seq_along(numbers)) {
   cat("Position ", i, ": ", numbers[i], " (Running total: ", sum(numbers[1:i]),")\n", sep="")
 }
 # END
+
+# The strsplit() function takes two arguments: the string to split and the separator.
+# To split into individual characters, use an empty string "" as the separator:
+
+word <- "hello"
+chars <- strsplit(word, "")[[1]]
+print(chars)
+
+# Once you have the characters as a vector, you can iterate over them using the techniques you've already learned:
+
+word <- "R"
+chars <- strsplit(word, "")[[1]]
+for (char in chars) {
+  print(char)
+}
+
+# START
+# Read input
+con <- file("stdin", "r")
+word <- suppressWarnings(readLines(con, n = 1))
+
+# Initialize counter for letter 'a'
+count_a <- 0
+
+# TODO: Write your code below
+# 1. Use strsplit() to split the word into individual characters
+chars <- strsplit(word, "")[[1]]
+# 2. Loop through each character
+# 3. Print each character using print()
+for (letter in chars) {
+  print(letter)
+}
+# 4. Count how many times 'a' appears
+for (letter in chars) {
+  if (letter == "a") {
+    count_a <- count_a + 1
+  }
+}
+
+# Output the count of 'a'
+cat("Count of 'a': ", count_a, "\n", sep = "")
+# END
