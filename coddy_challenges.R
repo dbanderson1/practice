@@ -1339,3 +1339,102 @@ for (letter in chars) {
 # Output the count of 'a'
 cat("Count of 'a': ", count_a, "\n", sep = "")
 # END
+
+# The nchar() function returns the number of characters in a string:
+
+word <- "hello"
+print(nchar(word))
+
+# To combine multiple strings into one, use paste(). By default, it separates elements with a space:
+
+result <- paste("Hello", "World")
+print(result)
+
+# Use paste0() when you want no separator between strings:
+  
+result <- paste0("Hello", "World")
+print(result)
+
+# For case conversion, R provides toupper() and tolower():
+# 1. Convert first_name to uppercase using toupper()
+first_name <- (toupper(first_name))
+# 2. Convert last_name to lowercase using tolower()
+last_name <- (tolower(last_name))
+
+
+# START
+# Read input
+con <- file("stdin", "r")
+first_name <- suppressWarnings(readLines(con, n = 1))
+last_name <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# TODO: Write your code below
+# 1. Convert first_name to uppercase using toupper()
+first_name <- (toupper(first_name))
+# 2. Convert last_name to lowercase using tolower()
+last_name <- (tolower(last_name))
+# 3. Combine them into full_name using paste()
+full_name <- paste(first_name, last_name)
+# 4. Calculate character count using nchar()
+char_count <-nchar(full_name)
+# 5. Create username using paste0() (all lowercase)
+username <- tolower(paste0(first_name,last_name))
+# Output the results
+print(full_name)
+print(char_count)
+print(username)
+# END
+
+#### Advanced Vectors ####
+
+# To extract multiple elements, pass a vector of indices inside the square brackets:
+  
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[c(1, 3, 5)])
+
+# You can also use the colon operator to select a range of consecutive elements:
+
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[2:4])
+
+# Negative indices are powerful in R. They exclude elements instead of selecting them:
+
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[-2])
+
+# You can exclude multiple elements by passing a vector of negative indices:
+
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[-c(1, 5)])
+
+# Challenge
+
+# START
+# Read input
+con <- file("stdin", "r")
+numbers_input <- suppressWarnings(readLines(con, n = 1))
+indices_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Parse the comma-separated numbers into a numeric vector
+numbers <- as.numeric(strsplit(numbers_input, ",")[[1]])
+
+# Parse the two indices
+indices <- as.numeric(strsplit(indices_input, ",")[[1]])
+idx1 <- indices[1]
+idx2 <- indices[2]
+
+# TODO: Write your code below
+# 1. Print elements at positions 1, 3, and 5 using a vector of indices
+print(numbers[c(1, 3, 5)])
+# 2. Print elements from position 2 to position 4 using the colon operator
+print(numbers[2:4])
+# 3. Print the vector with the element at idx1 excluded (negative indexing)
+print(numbers[-idx1])
+# 4. Print the vector with elements from idx1 to idx2 excluded (negative indexing with range)
+print(numbers[-c(idx1:idx2)])
+# END 
+  
+  
+
