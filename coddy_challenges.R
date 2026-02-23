@@ -1436,5 +1436,137 @@ print(numbers[-idx1])
 print(numbers[-c(idx1:idx2)])
 # END 
   
+## Logical Indexing
+
+# When you apply a comparison to a vector, R returns a logical vector of the same length:
+
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers > 25)
+
+# You can use this logical vector directly inside square brackets to extract matching elements:
   
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[numbers > 25])
+
+# This approach is much cleaner than writing loops to filter data. You can combine conditions using logical operators:
+
+numbers <- c(10, 20, 30, 40, 50)
+print(numbers[numbers >= 20 & numbers <= 40])
+
+# START
+# Read input
+con <- file("stdin", "r")
+numbers_input <- suppressWarnings(readLines(con, n = 1))
+thresholds_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Parse the comma-separated numbers into a numeric vector
+numbers <- as.numeric(unlist(strsplit(numbers_input, ",")))
+
+# Parse the threshold values
+thresholds <- as.numeric(unlist(strsplit(thresholds_input, ",")))
+lower_bound <- thresholds[1]
+upper_bound <- thresholds[2]
+
+# TODO: Write your code below
+# 1. Use logical indexing to extract elements less than lower_bound and print
+print(numbers[numbers < lower_bound])
+# 2. Use logical indexing to extract elements greater than upper_bound and print
+print(numbers[numbers > upper_bound])
+# 3. Use logical indexing with & operator to extract elements within the range (inclusive) and print
+print(numbers[numbers >= lower_bound & numbers <= upper_bound])
+# END
+
+## Vectoring Arithmetic and Recycling
+
+# When you perform arithmetic operations between two vectors of the same length, R applies the operation element by element:
+
+a <- c(1, 2, 3)
+b <- c(10, 20, 30)
+print(a + b)
+
+# when unequal 
+# R uses a behavior called recycling. The shorter vector is repeated to match the length of the longer one:
+
+numbers <- c(1, 2, 3, 4, 5, 6)
+multiplier <- c(10, 100)
+print(numbers * multiplier)
+
+prices <- c(10, 20, 30)
+print(prices * 1.1)
+
+# START
+# Read input
+con <- file("stdin", "r")
+base_input <- suppressWarnings(readLines(con, n = 1))
+multipliers_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# Parse the comma-separated values into numeric vectors
+base_values <- as.numeric(strsplit(base_input, ",")[[1]])
+multipliers <- as.numeric(strsplit(multipliers_input, ",")[[1]])
+
+# TODO: Write your code below
+# 1. Multiply base_values by multipliers (recycling will happen automatically)
+# 2. Print the multiplication result
+print(base_values * multipliers)
+# 3. Add 100 to each element of base_values
+# 4. Print the addition result
+print(base_values + 100)
+# 5. Subtract multipliers from base_values
+# 6. Print the subtraction result
+print(base_values - multipliers)
+# END
+
+## The %in% Operator ##
+
+# The %in% operator provides a clean way to test for membership;
+# returning TRUE for each element that matches and FALSE otherwise.
+
+fruits <- c("apple", "banana", "cherry")
+print("banana" %in% fruits)
+
+# You can also check multiple values at once. 
+
+fruits <- c("apple", "banana", "cherry")
+check <- c("banana", "grape", "apple")
+print(check %in% fruits)
+
+# This makes %in% perfect for filtering
+
+numbers <- c(1, 5, 3, 8, 2, 9)
+allowed <- c(1, 2, 3)
+print(numbers[numbers %in% allowed])
+
+nums <- c(10, 20, 30)
+test <- c(20, 40)
+print(test %in% nums)
+print(nums %in% test)
+
+# START
+# Read input
+con <- file("stdin", "r")
+inventory_input <- suppressWarnings(readLines(con, n = 1))
+shopping_list_input <- suppressWarnings(readLines(con, n = 1))
+sale_items_input <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+# TODO: Write your code below
+# 1. Create character vectors
+inventory_char <- strsplit(inventory_input, ",")[[1]]
+shopping_char  <- strsplit(shopping_list_input, ",")[[1]]
+sale_char      <- strsplit(sale_items_input, ",")[[1]]
+
+# 2. Items already in inventory
+print(shopping_char %in% inventory_char)
+
+# 3. Items NOT in inventory
+print(shopping_char[!(shopping_char %in% inventory_char)])
+
+# 4. Items to buy that are also on sale
+print(shopping_char[
+  !(shopping_char %in% inventory_char) &
+    shopping_char %in% sale_char
+])
+# END
 
