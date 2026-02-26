@@ -1570,3 +1570,28 @@ print(shopping_char[
 ])
 # END
 
+#### Lists ####
+
+# You create a list using the list() function:
+my_list <- list(42, "hello", TRUE)
+print(my_list)
+
+# START
+# Read the three inputs
+con <- file("stdin", "r")
+numeric_input <- suppressWarnings(readLines(con, n = 1))
+text_input <- suppressWarnings(readLines(con, n = 1))
+logical_input <- suppressWarnings(readLines(con, n = 1))
+# TODO: Write your code below
+# 1. Convert the inputs to their appropriate types (numeric, character, logical)
+number <- as.numeric(numeric_input)
+text <- as.character(text_input) 
+logic <- as.logical(logical_input) 
+# 2. Create a list containing these three converted values in order
+list_one <- list(number, text, logic)
+# 3. Create a second list with c(10, 20, 30) as first element and "data" as second element
+list_two <- list(c(10, 20, 30), "data")
+# 4. Print both lists
+print(list_one)
+print(list_two)
+# END
