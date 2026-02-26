@@ -1595,3 +1595,26 @@ list_two <- list(c(10, 20, 30), "data")
 print(list_one)
 print(list_two)
 # END
+
+## Accessing List Elements ##
+
+# Double brackets extract the actual element from the list:
+
+my_list <- list(42, "hello", TRUE)
+print(my_list[[1]])
+
+# Single brackets return a sublist containing the element, not the element itself:
+
+my_list <- list(42, "hello", TRUE)
+print(my_list[1])
+
+# If a list element is a vector, double brackets let you access it directly and
+# then use vector indexing:
+
+my_list <- list(c(10, 20, 30), "text")
+print(my_list[[1]][2])
+
+
+
+
+  
