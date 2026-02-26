@@ -1614,7 +1614,34 @@ print(my_list[1])
 my_list <- list(c(10, 20, 30), "text")
 print(my_list[[1]][2])
 
+# START
+# Read input
+con <- file("stdin", "r")
+input1 <- suppressWarnings(readLines(con, n = 1))  # First line: three comma-separated values
+input2 <- suppressWarnings(readLines(con, n = 1))  # Second line: comma-separated numbers for vector
+close(con)
 
+# Parse the first input line into separate values
+values <- strsplit(input1, ",")[[1]]
+numeric_val <- as.numeric(values[1])
+text_val <- values[2]
+logical_val <- as.logical(values[3])
+
+# Parse the second input line into a numeric vector
+vector_val <- as.numeric(strsplit(input2, ",")[[1]])
+
+# TODO: Write your code below
+# 1. Create a list with four elements: numeric_val, text_val, logical_val, and vector_val
+my_list <- list(numeric_val, text_val, logical_val, vector_val)
+# 2. Use double brackets [[ ]] to extract and print the second element
+print(my_list[[2]])
+# 3. Use single brackets [ ] to extract the third element and print it
+print(my_list[3])
+# 4. Access the fourth element with double brackets, then extract its third value
+print(my_list[[4]][3])
+# 5. Print the sum of all numbers in the fourth element
+print(sum(my_list[[4]]))
+# END
 
 
   
