@@ -1685,8 +1685,39 @@ person$age <- 26
 person$city <- "Paris"
 print(person)
 
-  
-  
+# START
+# Read input
+con <- file("stdin", "r")
+title <- suppressWarnings(readLines(con, n = 1))
+author <- suppressWarnings(readLines(con, n = 1))
+year <- suppressWarnings(readLines(con, n = 1))
+close(con)
+
+book_year <- as.numeric(year)
+
+# Create named list
+book <- list(
+  title = title,
+  author = author,
+  year = book_year
+)
+
+# Print title
+print(book$title)
+
+# Print year using [[ ]]
+print(book[["year"]])
+
+# Update year to 1 year later
+book$year <- book$year + 1
+
+# Add new element
+book$available <- TRUE
+
+# Print updated list
+print(book)
+
+# END
 
 
 
