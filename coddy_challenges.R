@@ -1643,5 +1643,51 @@ print(my_list[[4]][3])
 print(sum(my_list[[4]]))
 # END
 
+## Modifying List ##
+
+# To change an existing element, use double brackets with assignment:
+
+my_list <- list(10, "hello", TRUE)
+my_list[[2]] <- "world"
+print(my_list)
+
+# To add a new element, simply assign to an index that doesn't exist yet:
+
+my_list <- list(10, "hello")
+my_list[[3]] <- FALSE
+print(my_list)
+
+# To remove an element, assign NULL to it:
+
+my_list <- list(10, "hello", TRUE)
+my_list[[2]] <- NULL
+print(my_list)
+
+## Named List ##
+
+# You can assign names when creating the list:
+
+person <- list(name = "Alice", age = 25, active = TRUE)
+print(person)
+
+# Notice how the output now shows $name instead of [[1]]. To access named elements, use the $ operator:
+
+print(person$name)
+
+# You can also use double brackets with the name as a string, which is useful when the name is stored in a variable:
+
+print(person[["name"]])
+
+# Modifying named elements works the same way. Use $ to change existing values or add new ones:
+
+person <- list(name = "Alice", age = 25)
+person$age <- 26
+person$city <- "Paris"
+print(person)
+
+  
+  
+
+
 
   
