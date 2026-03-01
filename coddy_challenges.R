@@ -1719,6 +1719,36 @@ print(book)
 
 # END
 
+# START
+# Read input
+con <- file("stdin", "r")
+product_name <- suppressWarnings(readLines(con, n = 1))
+price <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+stock <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+discount_percentage <- as.numeric(suppressWarnings(readLines(con, n = 1)))
+close(con)
 
+# TODO: Write your code below
+# 1. Create a named list called 'product' with elements: name, price, stock, and available
+product <- list(name = product_name, price = price, stock = stock)
+
+if (stock > 0) {
+  product$available <- TRUE
+}
+
+
+# 2. Print the product name using the $ operator
+print(product$name)
+# 3. Calculate the discounted price and update the price element
+product$price <- (price * ((100 - discount_percentage)/100))
+# 4. Add a new element called 'discounted' with value TRUE
+product$discounted <- TRUE
+# 5. Reduce the stock by 1
+product$stock <- (product$stock - 1)
+# 6. Remove the 'available' element from the list
+product$available <- NULL
+# 7. Print the final list
+print(product)
+# END 
 
   
