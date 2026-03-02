@@ -1751,4 +1751,19 @@ product$available <- NULL
 print(product)
 # END 
 
-  
+#### Final Chapter Challenge ####
+
+# START
+# Read input
+con <- file("stdin", "r")
+n <- as.integer(suppressWarnings(readLines(con, n = 1)))
+
+# TODO: Write your code below
+# Use a loop to print n rows
+# Each row i should contain i asterisks
+# Use strrep() to repeat "*" and cat() to print each row
+for (i in 1:n) {
+  cat(strrep("*", i),"\n", sep = "")
+}
+
+# END
