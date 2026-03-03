@@ -125,3 +125,25 @@ my_list$new_element <- c(TRUE, FALSE)
 # View updated list
 my_list
 
+# Practice
+
+vec <- c(2, 4, 6, 8)
+vec[3]
+
+mat <- matrix(c(1:16), ncol = 4, nrow = 4)
+mat2 <- matrix(c(1:16), ncol = 4, nrow = 4, byrow = TRUE)
+?matrix
+?vector
+data_frame <- data.frame(
+  weight = c(60, 70, 80),
+  height = c(1.5, 1.6, 1.7),
+  bmi <- (data_frame$weight/(data_frame$height^2))
+  )
+
+data_frame$bmi <- bmi = (data_frame$weight/(data_frame$height^2))
+data_frame$name <- c("Bob", "Sue", "Jane")
+data_frame[data_frame$name == "Bob",]
+data_frame$name
+data_frame[3,3]
+data_frame[["name"]]
+data_frame[data_frame$name == "Bob", | data_frame$name == "Sue", ]
