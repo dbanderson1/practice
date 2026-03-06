@@ -3,11 +3,11 @@ title: "Data Manipulation"
 author: "Derek Anderson"
 date: "`r Sys.Date()`"
 output:
-  md_document:
-    variant: gfm
   html_document:
     toc: true
     toc_float: true
+  md_document:
+    variant: gfm
 ---
 # Global Setup
 ```{r setup, include=TRUE}
@@ -102,6 +102,80 @@ cat("Tallest person:", tallest_person)
 ```
 
 ### Dataframe Indexing
+
+#### Example Data Frame
+
+```{r Example Data Frame}
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  age = c(25, 30, 35, 28, 22),
+  city = c("New York", "London", "Paris", "Tokyo", "Sydney"),
+  salary = c(50000, 60000, 75000, 55000, 45000)
+)
+```
+
+#### Indexing by Position
+
+```{r}
+# Single element
+df[2, 3]  # Returns the element in the 2nd row and 3rd column (character: "London")
+# Entire row
+df[3, ]  # Returns the 3rd row as a data frame with 1 row and all columns
+# Entire column
+df[, 2]  # Returns the 2nd column as a vector
+df[[2]]  # Also returns the 2nd column as a vector
+# Multiple rows or columns:
+df[1:3, ]  # Returns the first 3 rows
+df[, c(1, 3)]  # Returns the 1st and 3rd columns
+```
+
+#### Indexing by Name
+
+```{r}
+# Single column
+df$age  # Returns the "age" column as a vector
+df[["age"]]  # Also returns the "age" column as a vector
+# Multiple columns
+df[c("name", "city")]  # Returns a data frame with "name" and "city" columns
+```
+
+#### Logical Indexing
+
+```{r}
+df[df$age > 30, ]  # Returns rows where age is greater than 30
+```
+
+#### Combining Methods
+
+```{r}
+df[df$salary > 50000, "name"]  # Returns names of people with salary > 50000
+```
+
+#### Adding and Modifying Data
+
+```{r}
+# Adding a new column
+df$department <- c("HR", "IT", "Finance", "Marketing", "Sales")
+# Modifying existing data
+df[df$name == "Alice", "salary"] <- 52000
+```
+
+#### Displaying Data Frame
+
+```{r}
+# head() previews the first rows
+head(df)
+# tail() previews the last rows
+tail(df)
+# names() shows column names
+names(df)
+# colnames() functions the same as names()
+colnames(df)
+# rownames() shows names of rows
+rownames(df)
+# glimpse from tidyverse, shows quick structure view
+glimpse(df)
+```
 
 ### Subsetting Data
 

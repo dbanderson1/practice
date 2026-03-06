@@ -131,6 +131,181 @@ cat("Tallest person:", tallest_person)
 
 ### Dataframe Indexing
 
+#### Example Data Frame
+
+``` r
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  age = c(25, 30, 35, 28, 22),
+  city = c("New York", "London", "Paris", "Tokyo", "Sydney"),
+  salary = c(50000, 60000, 75000, 55000, 45000)
+)
+```
+
+#### Indexing by Position
+
+``` r
+# Single element
+df[2, 3]  # Returns the element in the 2nd row and 3rd column (character: "London")
+```
+
+    ## [1] "London"
+
+``` r
+# Entire row
+df[3, ]  # Returns the 3rd row as a data frame with 1 row and all columns
+```
+
+    ##      name age  city salary
+    ## 3 Charlie  35 Paris  75000
+
+``` r
+# Entire column
+df[, 2]  # Returns the 2nd column as a vector
+```
+
+    ## [1] 25 30 35 28 22
+
+``` r
+df[[2]]  # Also returns the 2nd column as a vector
+```
+
+    ## [1] 25 30 35 28 22
+
+``` r
+# Multiple rows or columns:
+df[1:3, ]  # Returns the first 3 rows
+```
+
+    ##      name age     city salary
+    ## 1   Alice  25 New York  50000
+    ## 2     Bob  30   London  60000
+    ## 3 Charlie  35    Paris  75000
+
+``` r
+df[, c(1, 3)]  # Returns the 1st and 3rd columns
+```
+
+    ##      name     city
+    ## 1   Alice New York
+    ## 2     Bob   London
+    ## 3 Charlie    Paris
+    ## 4   David    Tokyo
+    ## 5     Eve   Sydney
+
+#### Indexing by Name
+
+``` r
+# Single column
+df$age  # Returns the "age" column as a vector
+```
+
+    ## [1] 25 30 35 28 22
+
+``` r
+df[["age"]]  # Also returns the "age" column as a vector
+```
+
+    ## [1] 25 30 35 28 22
+
+``` r
+# Multiple columns
+df[c("name", "city")]  # Returns a data frame with "name" and "city" columns
+```
+
+    ##      name     city
+    ## 1   Alice New York
+    ## 2     Bob   London
+    ## 3 Charlie    Paris
+    ## 4   David    Tokyo
+    ## 5     Eve   Sydney
+
+#### Logical Indexing
+
+``` r
+df[df$age > 30, ]  # Returns rows where age is greater than 30
+```
+
+    ##      name age  city salary
+    ## 3 Charlie  35 Paris  75000
+
+#### Combining Methods
+
+``` r
+df[df$salary > 50000, "name"]  # Returns names of people with salary > 50000
+```
+
+    ## [1] "Bob"     "Charlie" "David"
+
+#### Adding and Modifying Data
+
+``` r
+# Adding a new column
+df$department <- c("HR", "IT", "Finance", "Marketing", "Sales")
+# Modifying existing data
+df[df$name == "Alice", "salary"] <- 52000
+```
+
+#### Displaying Data Frame
+
+``` r
+# head() previews the first rows
+head(df)
+```
+
+    ##      name age     city salary department
+    ## 1   Alice  25 New York  52000         HR
+    ## 2     Bob  30   London  60000         IT
+    ## 3 Charlie  35    Paris  75000    Finance
+    ## 4   David  28    Tokyo  55000  Marketing
+    ## 5     Eve  22   Sydney  45000      Sales
+
+``` r
+# tail() previews the last rows
+tail(df)
+```
+
+    ##      name age     city salary department
+    ## 1   Alice  25 New York  52000         HR
+    ## 2     Bob  30   London  60000         IT
+    ## 3 Charlie  35    Paris  75000    Finance
+    ## 4   David  28    Tokyo  55000  Marketing
+    ## 5     Eve  22   Sydney  45000      Sales
+
+``` r
+# names() shows column names
+names(df)
+```
+
+    ## [1] "name"       "age"        "city"       "salary"     "department"
+
+``` r
+# colnames() functions the same as names()
+colnames(df)
+```
+
+    ## [1] "name"       "age"        "city"       "salary"     "department"
+
+``` r
+# rownames() shows names of rows
+rownames(df)
+```
+
+    ## [1] "1" "2" "3" "4" "5"
+
+``` r
+# glimpse from tidyverse, shows quick structure view
+glimpse(df)
+```
+
+    ## Rows: 5
+    ## Columns: 5
+    ## $ name       <chr> "Alice", "Bob", "Charlie", "David", "Eve"
+    ## $ age        <dbl> 25, 30, 35, 28, 22
+    ## $ city       <chr> "New York", "London", "Paris", "Tokyo", "Sydney"
+    ## $ salary     <dbl> 52000, 60000, 75000, 55000, 45000
+    ## $ department <chr> "HR", "IT", "Finance", "Marketing", "Sales"
+
 ### Subsetting Data
 
 ### Data Type Conversion
