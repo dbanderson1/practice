@@ -1701,6 +1701,58 @@ glimpse(df)</code></pre>
 </div>
 <div id="subsetting-data" class="section level3">
 <h3>Subsetting Data</h3>
+<p>Subsetting data is a crucial skill in R that allows you to extract
+specific portions of your data. The subset() function provides a
+convenient way to subset data frames.</p>
+<pre class="r"><code>df &lt;- data.frame(
+  name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
+  age = c(25, 30, 35),
+  city = c(&quot;New York&quot;, &quot;London&quot;, &quot;Paris&quot;)
+)</code></pre>
+<div id="subsetting-rows" class="section level4">
+<h4>Subsetting Rows</h4>
+<pre class="r"><code># Subsetting rows
+result &lt;- subset(df, age &gt; 28)
+print(result)</code></pre>
+<pre><code>##      name age   city
+## 2     Bob  30 London
+## 3 Charlie  35  Paris</code></pre>
+</div>
+<div id="subsetting-columns" class="section level4">
+<h4>Subsetting COlumns</h4>
+<pre class="r"><code># Subsetting columns
+result &lt;- subset(df, select = c(&quot;name&quot;, &quot;city&quot;))
+print(result)</code></pre>
+<pre><code>##      name     city
+## 1   Alice New York
+## 2     Bob   London
+## 3 Charlie    Paris</code></pre>
+</div>
+<div id="subsetting-challenge" class="section level4">
+<h4>Subsetting Challenge</h4>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_data &lt;- suppressWarnings(readLines(con))
+
+# Create data frame from input
+df &lt;- read.csv(text = input_data, header = TRUE, stringsAsFactors = FALSE)
+
+# TODO: Write your code below
+# 1. Subset the data frame for students older than 20
+df &lt;- subset(df, age &gt; 20)
+# 2. Select only the &quot;name&quot; and &quot;score&quot; columns
+df &lt;- subset(df, select = c(&quot;name&quot;, &quot;score&quot;))
+# 3. Calculate the average score
+# added code to round to decimals using round()
+avg_score &lt;- round(mean(df$score), 2)
+
+# 4. Find the student with the highest score
+smartest_student &lt;- df$name[df$score == max(df$score)]
+
+# Print results (update these with your calculations)
+cat(&quot;Average score:&quot;, avg_score, &quot;\n&quot;)
+cat(&quot;Student with highest score:&quot;, smartest_student, &quot;\n&quot;)</code></pre>
+</div>
 </div>
 <div id="data-type-conversion" class="section level3">
 <h3>Data Type Conversion</h3>

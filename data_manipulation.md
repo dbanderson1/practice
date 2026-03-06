@@ -308,6 +308,70 @@ glimpse(df)
 
 ### Subsetting Data
 
+Subsetting data is a crucial skill in R that allows you to extract
+specific portions of your data. The subset() function provides a
+convenient way to subset data frames.
+
+``` r
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  age = c(25, 30, 35),
+  city = c("New York", "London", "Paris")
+)
+```
+
+#### Subsetting Rows
+
+``` r
+# Subsetting rows
+result <- subset(df, age > 28)
+print(result)
+```
+
+    ##      name age   city
+    ## 2     Bob  30 London
+    ## 3 Charlie  35  Paris
+
+#### Subsetting COlumns
+
+``` r
+# Subsetting columns
+result <- subset(df, select = c("name", "city"))
+print(result)
+```
+
+    ##      name     city
+    ## 1   Alice New York
+    ## 2     Bob   London
+    ## 3 Charlie    Paris
+
+#### Subsetting Challenge
+
+``` r
+# Read input
+con <- file("stdin", "r")
+input_data <- suppressWarnings(readLines(con))
+
+# Create data frame from input
+df <- read.csv(text = input_data, header = TRUE, stringsAsFactors = FALSE)
+
+# TODO: Write your code below
+# 1. Subset the data frame for students older than 20
+df <- subset(df, age > 20)
+# 2. Select only the "name" and "score" columns
+df <- subset(df, select = c("name", "score"))
+# 3. Calculate the average score
+# added code to round to decimals using round()
+avg_score <- round(mean(df$score), 2)
+
+# 4. Find the student with the highest score
+smartest_student <- df$name[df$score == max(df$score)]
+
+# Print results (update these with your calculations)
+cat("Average score:", avg_score, "\n")
+cat("Student with highest score:", smartest_student, "\n")
+```
+
 ### Data Type Conversion
 
 ### The Pipe Operator in R
