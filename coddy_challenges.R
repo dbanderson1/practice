@@ -1767,3 +1767,45 @@ for (i in 1:n) {
 }
 
 # END
+
+#### While Loops ####
+# The basic structure of a while loop in R is as follows:
+
+while (condition) {
+  # Code to be executed as long as the condition is TRUE
+}
+  
+# condition: An expression that evaluates to either TRUE or FALSE.
+# code block: The set of statements to be executed repeatedly while the condition is TRUE.
+# example
+count <- 1
+while (count <= 5) {
+  print(count)
+  count <- count + 1
+}
+
+# It's crucial to update the condition within the loop to avoid infinite loops:
+
+x <- 1
+while (x < 5) {
+  print(x)
+  x <- x + 1  # Without this, the loop would run indefinitely
+}
+
+# The break statement can be used to exit a while loop prematurely:
+
+i <- 1
+while (TRUE) {
+  if (i > 5) {
+    break
+  }
+  print(i)
+  i <- i + 1
+}
+
+
+
+
+
+
+
