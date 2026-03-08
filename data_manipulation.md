@@ -374,6 +374,130 @@ cat("Student with highest score:", smartest_student, "\n")
 
 ### Data Type Conversion
 
+#### Checking Data Types
+
+Before converting, it’s important to know the current data type of your
+variable. Use the class() function to check:
+
+``` r
+x <- 42
+class(x)  # Output: "numeric"
+```
+
+    ## [1] "numeric"
+
+``` r
+y <- "Hello"
+class(y)  # Output: "character"
+```
+
+    ## [1] "character"
+
+#### Numeric to Character Conversion
+
+Use the as.character() function to convert numeric to character:
+
+``` r
+num <- 42
+char_num <- as.character(num)
+class(char_num)  # Output: "character"
+```
+
+    ## [1] "character"
+
+``` r
+print(char_num)  # Output: "42"
+```
+
+    ## [1] "42"
+
+#### Character to Numeric Conversion
+
+Use the as.numeric() function to convert character to numeric:
+
+``` r
+char <- "3.14"
+num_char <- as.numeric(char)
+class(num_char)  # Output: "numeric"
+```
+
+    ## [1] "numeric"
+
+``` r
+print(num_char)  # Output: 3.14
+```
+
+    ## [1] 3.14
+
+#### Character to Factor Conversion
+
+Use the as.factor() function to convert character to factor:
+
+``` r
+fruits <- c("apple", "banana", "apple", "cherry")
+factor_fruits <- as.factor(fruits)
+class(factor_fruits)  # Output: "factor"
+```
+
+    ## [1] "factor"
+
+``` r
+print(factor_fruits)  # Output: apple banana apple cherry
+```
+
+    ## [1] apple  banana apple  cherry
+    ## Levels: apple banana cherry
+
+``` r
+                      #         Levels: apple banana cherry
+```
+
+#### Factor to Chracter Conversion
+
+Use the as.character() function to convert factor to character:
+
+``` r
+char_fruits <- as.character(factor_fruits)
+class(char_fruits)  # Output: "character"
+```
+
+    ## [1] "character"
+
+``` r
+print(char_fruits)  # Output: "apple" "banana" "apple" "cherry"
+```
+
+    ## [1] "apple"  "banana" "apple"  "cherry"
+
+#### Challenge
+
+``` r
+# Read input
+con <- file("stdin", "r")
+input_string <- suppressWarnings(readLines(con))
+
+# Convert input string to numeric vector
+numeric_vector <- as.numeric(strsplit(input_string, ",")[[1]])
+
+# TODO: Write your code below
+
+# 1. Convert numeric_vector to a character vector
+# 2. Convert the character vector to a factor
+# 3. Convert the factor back to a character vector
+# 4. Calculate the mean of the original numeric vector
+char_vector <- as.character(numeric_vector)
+factor_vector <- as.factor(char_vector)
+char_from_factor <- as.character(factor_vector)
+mean_value <- mean(numeric_vector)
+
+# Print the result
+print(numeric_vector)
+print(char_vector)
+print(factor_vector)
+print(char_from_factor)
+print(mean_value)
+```
+
 ### The Pipe Operator in R
 
 ## Data Transformation
