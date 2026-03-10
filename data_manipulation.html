@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-08" />
+<meta name="date" content="2026-03-09" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-08</h4>
+<h4 class="date">2026-03-09</h4>
 
 </div>
 
@@ -1838,12 +1838,169 @@ print(mean_value)</code></pre>
 </div>
 <div id="the-pipe-operator-in-r" class="section level3">
 <h3>The Pipe Operator in R</h3>
+<p>The pipe operator (%&gt;%) in R enhances code readability and
+intuitiveness, especially when used with data manipulation packages like
+dplyr. It takes the output from one function and passes it as the first
+argument to the next, effectively meaning “and then” in the code
+flow.</p>
+<div id="basic-usage" class="section level4">
+<h4>Basic Usage</h4>
+<p>Without pipe:</p>
+<pre class="r"><code># result &lt;- function2(function1(data))
+# Without pipe
+squared_sum &lt;- sum(sqrt(c(1, 4, 9)))</code></pre>
+<p>With pipe:</p>
+<pre class="r"><code># result &lt;- data %&gt;% function1() %&gt;% function2()
+# With pipe
+squared_sum &lt;- c(1, 4, 9) %&gt;% sqrt() %&gt;% sum()</code></pre>
+<p><strong>Advantages of Using Pipes</strong></p>
+<ul>
+<li>Improved readability: Code flows from left to right, similar to how
+we read.</li>
+<li>Reduced need for intermediate variables.</li>
+<li>Easier to add or modify steps in a sequence of operations.</li>
+</ul>
+</div>
+<div id="using-pipes-with-arguments" class="section level4">
+<h4>Using Pipes with Arguments</h4>
+<p>You can still specify additional arguments after the pipe:</p>
+<pre class="r"><code>mtcars %&gt;% head(n = 5)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</code></pre>
+<p>In this case, mtcars is passed as the first argument to head(), and n
+= 5 is passed as the second argument.</p>
+<p>Understanding the pipe operator will greatly enhance your ability to
+write clean, readable R code, especially when working with dplyr and
+other tidyverse packages.</p>
+</div>
 </div>
 </div>
 <div id="data-transformation" class="section level2">
 <h2>Data Transformation</h2>
 <div id="intro-to-dplyr" class="section level3">
 <h3>Intro to dplyr</h3>
+<p>The dplyr package is a powerful tool for data manipulation in R. It
+provides a set of functions that make it easy to transform and analyze
+data frames efficiently. In this lesson, we’ll focus on three key
+functions: select(), filter(), and mutate().</p>
+<div id="loading-dplyr" class="section level4">
+<h4>Loading dplyr</h4>
+<p>Here is an example of how to load the package:</p>
+<pre class="r"><code># Load dplyr
+library(dplyr)</code></pre>
+</div>
+<div id="select-function" class="section level4">
+<h4>select() Function</h4>
+<p>The select() function allows you to choose specific columns from a
+data frame:</p>
+<pre class="r"><code># Create a sample data frame
+df &lt;- data.frame(
+  name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
+  age = c(25, 30, 35),
+  city = c(&quot;New York&quot;, &quot;London&quot;, &quot;Paris&quot;)
+)
+
+# Select specific columns
+result &lt;- select(df, name, age)
+print(result)</code></pre>
+<pre><code>##      name age
+## 1   Alice  25
+## 2     Bob  30
+## 3 Charlie  35</code></pre>
+</div>
+<div id="filter-function" class="section level4">
+<h4>filter() Function</h4>
+<p>The filter() function helps you subset rows based on specific
+conditions:</p>
+<pre class="r"><code># Filter rows where age is greater than 28
+result &lt;- filter(df, age &gt; 28)
+print(result)</code></pre>
+<pre><code>##      name age   city
+## 1     Bob  30 London
+## 2 Charlie  35  Paris</code></pre>
+</div>
+<div id="mutate-function" class="section level4">
+<h4>mutate() Function</h4>
+<p>The mutate() function allows you to create new columns or modify
+existing ones:</p>
+<pre class="r"><code># Add a new column &#39;age_group&#39;
+result &lt;- mutate(df, age_group = ifelse(age &lt; 30, &quot;Young&quot;, &quot;Adult&quot;))
+print(result)</code></pre>
+<pre><code>##      name age     city age_group
+## 1   Alice  25 New York     Young
+## 2     Bob  30   London     Adult
+## 3 Charlie  35    Paris     Adult</code></pre>
+</div>
+<div id="arrange-function" class="section level4">
+<h4>arrange() Function</h4>
+<p>Ascending Order (lowest to highest): The default behavior is
+ascending.</p>
+<pre class="r"><code>df %&gt;%
+  arrange(age)</code></pre>
+<pre><code>##      name age     city
+## 1   Alice  25 New York
+## 2     Bob  30   London
+## 3 Charlie  35    Paris</code></pre>
+<p>Descending Order (highest to lowest): Use the desc() function to
+reverse the order.</p>
+<pre class="r"><code>df %&gt;%
+  arrange(desc(age))</code></pre>
+<pre><code>##      name age     city
+## 1 Charlie  35    Paris
+## 2     Bob  30   London
+## 3   Alice  25 New York</code></pre>
+</div>
+<div id="pipe-operator" class="section level4">
+<h4>Pipe Operator %&gt;%</h4>
+<p>dplyr introduces the pipe operator %&gt;%, which allows you to chain
+multiple operations:</p>
+<pre class="r"><code>result &lt;- df %&gt;%
+  filter(age &gt; 28) %&gt;%
+  select(name, city) %&gt;%
+  mutate(location = paste(name, &quot;lives in&quot;, city))
+print(result)</code></pre>
+<pre><code>##      name   city               location
+## 1     Bob London    Bob lives in London
+## 2 Charlie  Paris Charlie lives in Paris</code></pre>
+</div>
+<div id="challenge-1" class="section level4">
+<h4>Challenge</h4>
+<pre class="r"><code># Load required library
+suppressPackageStartupMessages(library(dplyr))
+
+# Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_data &lt;- suppressWarnings(readLines(con))
+
+# Create data frame from input
+df &lt;- read.csv(text = input_data, stringsAsFactors = FALSE)
+
+# TODO: Write your code below to process the data frame
+process_employee_data &lt;- function(df) {
+  # Your code here
+  # Use dplyr functions to:
+  # 1. Select columns
+  df &lt;- select(df, name, age, salary) %&gt;%
+  # 2. Filter data
+  filter(age &gt;= 30) %&gt;%
+  # 3. Add bonus column
+  mutate (bonus = ifelse(age &gt;= 40, salary * .1, salary * .05)) %&gt;%
+  # 4. Arrange by salary
+  arrange(desc(salary))
+  # Replace this with your processed data frame
+  return(df)  
+}
+
+# Process the data frame
+result &lt;- process_employee_data(df)
+
+# Print the result
+print(result)</code></pre>
+</div>
 </div>
 <div id="aggregating-with-dplyr" class="section level3">
 <h3>Aggregating with dplyr</h3>

@@ -500,9 +500,209 @@ print(mean_value)
 
 ### The Pipe Operator in R
 
+The pipe operator (%\>%) in R enhances code readability and
+intuitiveness, especially when used with data manipulation packages like
+dplyr. It takes the output from one function and passes it as the first
+argument to the next, effectively meaning “and then” in the code flow.
+
+#### Basic Usage
+
+Without pipe:
+
+``` r
+# result <- function2(function1(data))
+# Without pipe
+squared_sum <- sum(sqrt(c(1, 4, 9)))
+```
+
+With pipe:
+
+``` r
+# result <- data %>% function1() %>% function2()
+# With pipe
+squared_sum <- c(1, 4, 9) %>% sqrt() %>% sum()
+```
+
+**Advantages of Using Pipes**
+
+- Improved readability: Code flows from left to right, similar to how we
+  read.
+- Reduced need for intermediate variables.
+- Easier to add or modify steps in a sequence of operations.
+
+#### Using Pipes with Arguments
+
+You can still specify additional arguments after the pipe:
+
+``` r
+mtcars %>% head(n = 5)
+```
+
+    ##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+    ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+    ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+    ## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+    ## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+    ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+
+In this case, mtcars is passed as the first argument to head(), and n =
+5 is passed as the second argument.
+
+Understanding the pipe operator will greatly enhance your ability to
+write clean, readable R code, especially when working with dplyr and
+other tidyverse packages.
+
 ## Data Transformation
 
 ### Intro to dplyr
+
+The dplyr package is a powerful tool for data manipulation in R. It
+provides a set of functions that make it easy to transform and analyze
+data frames efficiently. In this lesson, we’ll focus on three key
+functions: select(), filter(), and mutate().
+
+#### Loading dplyr
+
+Here is an example of how to load the package:
+
+``` r
+# Load dplyr
+library(dplyr)
+```
+
+#### select() Function
+
+The select() function allows you to choose specific columns from a data
+frame:
+
+``` r
+# Create a sample data frame
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  age = c(25, 30, 35),
+  city = c("New York", "London", "Paris")
+)
+
+# Select specific columns
+result <- select(df, name, age)
+print(result)
+```
+
+    ##      name age
+    ## 1   Alice  25
+    ## 2     Bob  30
+    ## 3 Charlie  35
+
+#### filter() Function
+
+The filter() function helps you subset rows based on specific
+conditions:
+
+``` r
+# Filter rows where age is greater than 28
+result <- filter(df, age > 28)
+print(result)
+```
+
+    ##      name age   city
+    ## 1     Bob  30 London
+    ## 2 Charlie  35  Paris
+
+#### mutate() Function
+
+The mutate() function allows you to create new columns or modify
+existing ones:
+
+``` r
+# Add a new column 'age_group'
+result <- mutate(df, age_group = ifelse(age < 30, "Young", "Adult"))
+print(result)
+```
+
+    ##      name age     city age_group
+    ## 1   Alice  25 New York     Young
+    ## 2     Bob  30   London     Adult
+    ## 3 Charlie  35    Paris     Adult
+
+#### arrange() Function
+
+Ascending Order (lowest to highest): The default behavior is ascending.
+
+``` r
+df %>%
+  arrange(age)
+```
+
+    ##      name age     city
+    ## 1   Alice  25 New York
+    ## 2     Bob  30   London
+    ## 3 Charlie  35    Paris
+
+Descending Order (highest to lowest): Use the desc() function to reverse
+the order.
+
+``` r
+df %>%
+  arrange(desc(age))
+```
+
+    ##      name age     city
+    ## 1 Charlie  35    Paris
+    ## 2     Bob  30   London
+    ## 3   Alice  25 New York
+
+#### Pipe Operator %\>%
+
+dplyr introduces the pipe operator %\>%, which allows you to chain
+multiple operations:
+
+``` r
+result <- df %>%
+  filter(age > 28) %>%
+  select(name, city) %>%
+  mutate(location = paste(name, "lives in", city))
+print(result)
+```
+
+    ##      name   city               location
+    ## 1     Bob London    Bob lives in London
+    ## 2 Charlie  Paris Charlie lives in Paris
+
+#### Challenge
+
+``` r
+# Load required library
+suppressPackageStartupMessages(library(dplyr))
+
+# Read input
+con <- file("stdin", "r")
+input_data <- suppressWarnings(readLines(con))
+
+# Create data frame from input
+df <- read.csv(text = input_data, stringsAsFactors = FALSE)
+
+# TODO: Write your code below to process the data frame
+process_employee_data <- function(df) {
+  # Your code here
+  # Use dplyr functions to:
+  # 1. Select columns
+  df <- select(df, name, age, salary) %>%
+  # 2. Filter data
+  filter(age >= 30) %>%
+  # 3. Add bonus column
+  mutate (bonus = ifelse(age >= 40, salary * .1, salary * .05)) %>%
+  # 4. Arrange by salary
+  arrange(desc(salary))
+  # Replace this with your processed data frame
+  return(df)  
+}
+
+# Process the data frame
+result <- process_employee_data(df)
+
+# Print the result
+print(result)
+```
 
 ### Aggregating with dplyr
 
