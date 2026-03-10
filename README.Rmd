@@ -3,11 +3,11 @@ title: "README"
 author: "Derek Anderson"
 date: "`r Sys.Date()`"
 output:
+  md_document:
+    variant: gfm
   html_document:
     toc: true
     toc_float: true
-  md_document:
-    variant: gfm
 ---
 
 # README
@@ -65,5 +65,5 @@ Feel free to browse and copy the code if you are also just learning R and Rmarkd
 
 ### Clone this repository:
 ```{bash clone, eval=FALSE}
-git clone https://github.com/dbanderson1/plpa_6820_assignments.git
+git clone https://github.com/dbanderson1/practice.git
 ```
