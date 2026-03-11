@@ -706,4 +706,132 @@ print(result)
 
 ### Aggregating with dplyr
 
+Aggregating data is a crucial step in data analysis, allowing you to
+summarize and gain insights from your dataset. The dplyr package in R
+provides powerful functions for data aggregation, particularly
+group_by() and summarize(). Let’s explore how to use these functions
+effectively.
+
+#### group_by() Function
+
+The group_by() function allows you to group your data based on one or
+more variables. This is typically the first step in data aggregation.
+
+``` r
+# Sample data frame
+df <- data.frame(
+  category = c("A", "B", "A", "B", "A"),
+  value = c(10, 15, 20, 25, 30)
+)
+
+# Group the data by category
+grouped_df <- group_by(df, category)
+print(grouped_df)
+```
+
+    ## # A tibble: 5 × 2
+    ## # Groups:   category [2]
+    ##   category value
+    ##   <chr>    <dbl>
+    ## 1 A           10
+    ## 2 B           15
+    ## 3 A           20
+    ## 4 B           25
+    ## 5 A           30
+
+#### summarize() Function
+
+After grouping, use summarize() to calculate summary statistics for each
+group.
+
+``` r
+# Calculate mean value for each category
+result <- summarize(grouped_df, mean_value = mean(value))
+print(result)
+```
+
+    ## # A tibble: 2 × 2
+    ##   category mean_value
+    ##   <chr>         <dbl>
+    ## 1 A                20
+    ## 2 B                20
+
+#### Combining group_by() and summarize()
+
+You can chain these functions using the pipe operator %\>% for more
+readable code:
+
+``` r
+result <- df %>%
+  group_by(category) %>%
+  summarize(mean_value = mean(value),
+            sum_value = sum(value),
+            count = n())
+print(result)
+```
+
+    ## # A tibble: 2 × 4
+    ##   category mean_value sum_value count
+    ##   <chr>         <dbl>     <dbl> <int>
+    ## 1 A                20        60     3
+    ## 2 B                20        40     2
+
+#### Multiple Summary Statistics
+
+You can calculate multiple statistics in a single summarize() call:
+
+``` r
+result <- df %>%
+  group_by(category) %>%
+  summarize(
+    mean_value = mean(value),
+    min_value = min(value),
+    max_value = max(value),
+    count = n()
+  )
+print(result)
+```
+
+    ## # A tibble: 2 × 5
+    ##   category mean_value min_value max_value count
+    ##   <chr>         <dbl>     <dbl>     <dbl> <int>
+    ## 1 A                20        10        30     3
+    ## 2 B                20        15        25     2
+
+#### Aggregating Challenge
+
+``` r
+# Read input
+con <- file("stdin", "r")
+input_data <- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+suppressPackageStartupMessages(library(dplyr))
+
+sales_data <- read.csv(text = paste(input_data, collapse = "\n"))
+
+# TODO: Write your code below to process the sales data
+# Hint: Use dplyr functions like group_by(), summarize(), arrange(), desc()
+
+process_sales_data <- function(data) {
+  # Your code here
+  data <- data %>%
+  group_by(category) %>%
+  summarize(
+    total_sales = sum(price * quantity),
+    average_price = mean(price),
+    items_sold = sum(quantity)
+  ) %>%
+  arrange(desc(total_sales))
+  # Return the processed data frame
+  return(data)
+}
+
+# Process the sales data
+result <- process_sales_data(sales_data)
+
+# Print the result
+print(result)
+```
+
 ### Joining Data with dplyr

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-09" />
+<meta name="date" content="2026-03-10" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-09</h4>
+<h4 class="date">2026-03-10</h4>
 
 </div>
 
@@ -2004,6 +2004,117 @@ print(result)</code></pre>
 </div>
 <div id="aggregating-with-dplyr" class="section level3">
 <h3>Aggregating with dplyr</h3>
+<p>Aggregating data is a crucial step in data analysis, allowing you to
+summarize and gain insights from your dataset. The dplyr package in R
+provides powerful functions for data aggregation, particularly
+group_by() and summarize(). Let’s explore how to use these functions
+effectively.</p>
+<div id="group_by-function" class="section level4">
+<h4>group_by() Function</h4>
+<p>The group_by() function allows you to group your data based on one or
+more variables. This is typically the first step in data
+aggregation.</p>
+<pre class="r"><code># Sample data frame
+df &lt;- data.frame(
+  category = c(&quot;A&quot;, &quot;B&quot;, &quot;A&quot;, &quot;B&quot;, &quot;A&quot;),
+  value = c(10, 15, 20, 25, 30)
+)
+
+# Group the data by category
+grouped_df &lt;- group_by(df, category)
+print(grouped_df)</code></pre>
+<pre><code>## # A tibble: 5 × 2
+## # Groups:   category [2]
+##   category value
+##   &lt;chr&gt;    &lt;dbl&gt;
+## 1 A           10
+## 2 B           15
+## 3 A           20
+## 4 B           25
+## 5 A           30</code></pre>
+</div>
+<div id="summarize-function" class="section level4">
+<h4>summarize() Function</h4>
+<p>After grouping, use summarize() to calculate summary statistics for
+each group.</p>
+<pre class="r"><code># Calculate mean value for each category
+result &lt;- summarize(grouped_df, mean_value = mean(value))
+print(result)</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   category mean_value
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 A                20
+## 2 B                20</code></pre>
+</div>
+<div id="combining-group_by-and-summarize" class="section level4">
+<h4>Combining group_by() and summarize()</h4>
+<p>You can chain these functions using the pipe operator %&gt;% for more
+readable code:</p>
+<pre class="r"><code>result &lt;- df %&gt;%
+  group_by(category) %&gt;%
+  summarize(mean_value = mean(value),
+            sum_value = sum(value),
+            count = n())
+print(result)</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##   category mean_value sum_value count
+##   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+## 1 A                20        60     3
+## 2 B                20        40     2</code></pre>
+</div>
+<div id="multiple-summary-statistics" class="section level4">
+<h4>Multiple Summary Statistics</h4>
+<p>You can calculate multiple statistics in a single summarize()
+call:</p>
+<pre class="r"><code>result &lt;- df %&gt;%
+  group_by(category) %&gt;%
+  summarize(
+    mean_value = mean(value),
+    min_value = min(value),
+    max_value = max(value),
+    count = n()
+  )
+print(result)</code></pre>
+<pre><code>## # A tibble: 2 × 5
+##   category mean_value min_value max_value count
+##   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+## 1 A                20        10        30     3
+## 2 B                20        15        25     2</code></pre>
+</div>
+<div id="aggregating-challenge" class="section level4">
+<h4>Aggregating Challenge</h4>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_data &lt;- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+suppressPackageStartupMessages(library(dplyr))
+
+sales_data &lt;- read.csv(text = paste(input_data, collapse = &quot;\n&quot;))
+
+# TODO: Write your code below to process the sales data
+# Hint: Use dplyr functions like group_by(), summarize(), arrange(), desc()
+
+process_sales_data &lt;- function(data) {
+  # Your code here
+  data &lt;- data %&gt;%
+  group_by(category) %&gt;%
+  summarize(
+    total_sales = sum(price * quantity),
+    average_price = mean(price),
+    items_sold = sum(quantity)
+  ) %&gt;%
+  arrange(desc(total_sales))
+  # Return the processed data frame
+  return(data)
+}
+
+# Process the sales data
+result &lt;- process_sales_data(sales_data)
+
+# Print the result
+print(result)</code></pre>
+</div>
 </div>
 <div id="joining-data-with-dplyr" class="section level3">
 <h3>Joining Data with dplyr</h3>
