@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-10" />
+<meta name="date" content="2026-03-11" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-10</h4>
+<h4 class="date">2026-03-11</h4>
 
 </div>
 
@@ -2118,6 +2118,163 @@ print(result)</code></pre>
 </div>
 <div id="joining-data-with-dplyr" class="section level3">
 <h3>Joining Data with dplyr</h3>
+<p>Joining data is a crucial operation in data manipulation, allowing
+you to combine multiple data frames based on common columns. The dplyr
+package in R provides efficient functions for various types of joins.
+Let’s explore the main join operations: inner join, left join, right
+join, and full join.</p>
+<div id="preparing-data" class="section level4">
+<h4>Preparing Data</h4>
+<p>First, let’s create two sample data frames to demonstrate join
+operations:</p>
+<pre class="r"><code># Load dplyr
+library(dplyr)
+
+# Create sample data frames
+employees &lt;- data.frame(
+  emp_id = c(1, 2, 3, 4),
+  name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;, &quot;David&quot;),
+  department = c(&quot;HR&quot;, &quot;IT&quot;, &quot;Finance&quot;, &quot;IT&quot;)
+)
+
+salaries &lt;- data.frame(
+  emp_id = c(1, 2, 3, 5),
+  salary = c(50000, 60000, 55000, 65000)
+)</code></pre>
+</div>
+<div id="inner-join" class="section level4">
+<h4>Inner Join</h4>
+<p>An inner join returns only the rows that have matching values in both
+data frames:</p>
+<pre class="r"><code>inner_join_result &lt;- inner_join(employees, salaries, by = &quot;emp_id&quot;)
+print(inner_join_result)</code></pre>
+<pre><code>##   emp_id    name department salary
+## 1      1   Alice         HR  50000
+## 2      2     Bob         IT  60000
+## 3      3 Charlie    Finance  55000</code></pre>
+</div>
+<div id="left-join" class="section level4">
+<h4>3. Left Join</h4>
+<p>A left join returns all rows from the left data frame and the matched
+rows from the right data frame:</p>
+<pre class="r"><code>left_join_result &lt;- left_join(employees, salaries, by = &quot;emp_id&quot;)
+print(left_join_result)</code></pre>
+<pre><code>##   emp_id    name department salary
+## 1      1   Alice         HR  50000
+## 2      2     Bob         IT  60000
+## 3      3 Charlie    Finance  55000
+## 4      4   David         IT     NA</code></pre>
+</div>
+<div id="right-join" class="section level4">
+<h4>Right Join</h4>
+<p>A right join returns all rows from the right data frame and the
+matched rows from the left data frame:</p>
+<pre class="r"><code>right_join_result &lt;- right_join(employees, salaries, by = &quot;emp_id&quot;)
+print(right_join_result)</code></pre>
+<pre><code>##   emp_id    name department salary
+## 1      1   Alice         HR  50000
+## 2      2     Bob         IT  60000
+## 3      3 Charlie    Finance  55000
+## 4      5    &lt;NA&gt;       &lt;NA&gt;  65000</code></pre>
+</div>
+<div id="full-join" class="section level4">
+<h4>Full Join</h4>
+<p>A full join returns all rows when there is a match in either left or
+right data frame:</p>
+<pre class="r"><code>full_join_result &lt;- full_join(employees, salaries, by = &quot;emp_id&quot;)
+print(full_join_result)</code></pre>
+<pre><code>##   emp_id    name department salary
+## 1      1   Alice         HR  50000
+## 2      2     Bob         IT  60000
+## 3      3 Charlie    Finance  55000
+## 4      4   David         IT     NA
+## 5      5    &lt;NA&gt;       &lt;NA&gt;  65000</code></pre>
+</div>
+<div id="specifying-join-columns" class="section level4">
+<h4>Specifying Join Columns</h4>
+<p>If the column names are different in the two data frames, you can
+specify the join columns explicitly:</p>
+<pre class="r"><code># Assuming &#39;salaries&#39; has &#39;employee_id&#39; instead of &#39;emp_id&#39;
+salaries_alt &lt;- salaries %&gt;% rename(employee_id = emp_id)
+
+join_result &lt;- inner_join(employees, salaries_alt, by = c(&quot;emp_id&quot; = &quot;employee_id&quot;))
+print(join_result)</code></pre>
+<pre><code>##   emp_id    name department salary
+## 1      1   Alice         HR  50000
+## 2      2     Bob         IT  60000
+## 3      3 Charlie    Finance  55000</code></pre>
+</div>
+<div id="add-new-columns" class="section level4">
+<h4>7. Add New Columns</h4>
+<p>Adding or Modifying Columns with mutate() The mutate() function in
+dplyr allows you to add new columns or modify existing ones in a data
+frame. It’s often used after join operations to perform calculations or
+transformations on the joined data.</p>
+<p>Example:</p>
+<pre class="r"><code># Add a bonus column to the joined data
+result_with_bonus &lt;- inner_join(employees, salaries, by = &quot;emp_id&quot;) %&gt;%
+  mutate(bonus = salary * 0.1)
+
+# Add a performance category based on salary
+result_with_category &lt;- inner_join(employees, salaries, by = &quot;emp_id&quot;) %&gt;%
+    mutate(performance_category = ifelse(salary &lt; 55000, &quot;Needs Improvement&quot;,
+                                  ifelse(salary &lt; 60000, &quot;Meets Expectations&quot;,
+                                  &quot;Exceeds Expectations&quot;)))
+# join, select(), and print result
+join_result &lt;- right_join(
+  result_with_bonus,
+  result_with_category %&gt;% select(emp_id, performance_category), 
+  by = &quot;emp_id&quot;
+) # by using selct you can only add performance category to avoid duplicate name.x or name.y columns. here pipe %&gt;% is used in the middle of the function operation
+print(join_result)</code></pre>
+<pre><code>##   emp_id    name department salary bonus performance_category
+## 1      1   Alice         HR  50000  5000    Needs Improvement
+## 2      2     Bob         IT  60000  6000 Exceeds Expectations
+## 3      3 Charlie    Finance  55000  5500   Meets Expectations</code></pre>
+</div>
+<div id="data-transformation-challenge" class="section level4">
+<h4>Data Transformation Challenge</h4>
+<pre class="r"><code># Read all input lines
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+all_lines &lt;- suppressWarnings(readLines(con))
+
+# Find the index where the second data frame starts
+separator_index &lt;- which(grepl(&quot;^book_id,rating,user_id&quot;, all_lines))
+
+# Split the input into two parts
+books_data &lt;- all_lines[1:(separator_index - 1)]
+ratings_data &lt;- all_lines[separator_index:length(all_lines)]
+
+# Load required library
+suppressPackageStartupMessages(library(dplyr))
+
+# Convert string inputs to data frames
+books &lt;- read.csv(text = paste(books_data, collapse = &quot;\n&quot;), stringsAsFactors = FALSE)
+ratings &lt;- read.csv(text = paste(ratings_data, collapse = &quot;\n&quot;), stringsAsFactors = FALSE)
+
+# TODO: Write your code below
+# Perform the required join operations and calculations
+
+# Function to perform join operations
+perform_joins &lt;- function(books, ratings) {
+  # Your code here
+  # Return a list containing all four join results
+  list(
+    inner_join = inner_join(books, ratings, by = &quot;book_id&quot;) %&gt;% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    left_join = left_join(books, ratings, by = &quot;book_id&quot;) %&gt;% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    right_join = right_join(books, ratings, by = &quot;book_id&quot;) %&gt;% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    full_join = full_join(books, ratings, by = &quot;book_id&quot;) %&gt;% mutate(num_ratings = ifelse(is.na(rating), 0, 1))
+  )
+}
+# I think this is a poor challenge because num_ratings is actually has_rating with 0 or 1 being TRUE FALSE. There were no test cases of the same book being rated twice which would actually require you to count the number of ratings.
+
+# Call the function and store the results
+join_results &lt;- perform_joins(books, ratings)
+results &lt;- join_results
+
+# Print the results
+print(results)</code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -835,3 +835,191 @@ print(result)
 ```
 
 ### Joining Data with dplyr
+
+Joining data is a crucial operation in data manipulation, allowing you
+to combine multiple data frames based on common columns. The dplyr
+package in R provides efficient functions for various types of joins.
+Let’s explore the main join operations: inner join, left join, right
+join, and full join.
+
+#### Preparing Data
+
+First, let’s create two sample data frames to demonstrate join
+operations:
+
+``` r
+# Load dplyr
+library(dplyr)
+
+# Create sample data frames
+employees <- data.frame(
+  emp_id = c(1, 2, 3, 4),
+  name = c("Alice", "Bob", "Charlie", "David"),
+  department = c("HR", "IT", "Finance", "IT")
+)
+
+salaries <- data.frame(
+  emp_id = c(1, 2, 3, 5),
+  salary = c(50000, 60000, 55000, 65000)
+)
+```
+
+#### Inner Join
+
+An inner join returns only the rows that have matching values in both
+data frames:
+
+``` r
+inner_join_result <- inner_join(employees, salaries, by = "emp_id")
+print(inner_join_result)
+```
+
+    ##   emp_id    name department salary
+    ## 1      1   Alice         HR  50000
+    ## 2      2     Bob         IT  60000
+    ## 3      3 Charlie    Finance  55000
+
+#### 3. Left Join
+
+A left join returns all rows from the left data frame and the matched
+rows from the right data frame:
+
+``` r
+left_join_result <- left_join(employees, salaries, by = "emp_id")
+print(left_join_result)
+```
+
+    ##   emp_id    name department salary
+    ## 1      1   Alice         HR  50000
+    ## 2      2     Bob         IT  60000
+    ## 3      3 Charlie    Finance  55000
+    ## 4      4   David         IT     NA
+
+#### Right Join
+
+A right join returns all rows from the right data frame and the matched
+rows from the left data frame:
+
+``` r
+right_join_result <- right_join(employees, salaries, by = "emp_id")
+print(right_join_result)
+```
+
+    ##   emp_id    name department salary
+    ## 1      1   Alice         HR  50000
+    ## 2      2     Bob         IT  60000
+    ## 3      3 Charlie    Finance  55000
+    ## 4      5    <NA>       <NA>  65000
+
+#### Full Join
+
+A full join returns all rows when there is a match in either left or
+right data frame:
+
+``` r
+full_join_result <- full_join(employees, salaries, by = "emp_id")
+print(full_join_result)
+```
+
+    ##   emp_id    name department salary
+    ## 1      1   Alice         HR  50000
+    ## 2      2     Bob         IT  60000
+    ## 3      3 Charlie    Finance  55000
+    ## 4      4   David         IT     NA
+    ## 5      5    <NA>       <NA>  65000
+
+#### Specifying Join Columns
+
+If the column names are different in the two data frames, you can
+specify the join columns explicitly:
+
+``` r
+# Assuming 'salaries' has 'employee_id' instead of 'emp_id'
+salaries_alt <- salaries %>% rename(employee_id = emp_id)
+
+join_result <- inner_join(employees, salaries_alt, by = c("emp_id" = "employee_id"))
+print(join_result)
+```
+
+    ##   emp_id    name department salary
+    ## 1      1   Alice         HR  50000
+    ## 2      2     Bob         IT  60000
+    ## 3      3 Charlie    Finance  55000
+
+#### 7. Add New Columns
+
+Adding or Modifying Columns with mutate() The mutate() function in dplyr
+allows you to add new columns or modify existing ones in a data frame.
+It’s often used after join operations to perform calculations or
+transformations on the joined data.
+
+Example:
+
+``` r
+# Add a bonus column to the joined data
+result_with_bonus <- inner_join(employees, salaries, by = "emp_id") %>%
+  mutate(bonus = salary * 0.1)
+
+# Add a performance category based on salary
+result_with_category <- inner_join(employees, salaries, by = "emp_id") %>%
+    mutate(performance_category = ifelse(salary < 55000, "Needs Improvement",
+                                  ifelse(salary < 60000, "Meets Expectations",
+                                  "Exceeds Expectations")))
+# join, select(), and print result
+join_result <- right_join(
+  result_with_bonus,
+  result_with_category %>% select(emp_id, performance_category), 
+  by = "emp_id"
+) # by using selct you can only add performance category to avoid duplicate name.x or name.y columns. here pipe %>% is used in the middle of the function operation
+print(join_result)
+```
+
+    ##   emp_id    name department salary bonus performance_category
+    ## 1      1   Alice         HR  50000  5000    Needs Improvement
+    ## 2      2     Bob         IT  60000  6000 Exceeds Expectations
+    ## 3      3 Charlie    Finance  55000  5500   Meets Expectations
+
+#### Data Transformation Challenge
+
+``` r
+# Read all input lines
+con <- file("stdin", "r")
+all_lines <- suppressWarnings(readLines(con))
+
+# Find the index where the second data frame starts
+separator_index <- which(grepl("^book_id,rating,user_id", all_lines))
+
+# Split the input into two parts
+books_data <- all_lines[1:(separator_index - 1)]
+ratings_data <- all_lines[separator_index:length(all_lines)]
+
+# Load required library
+suppressPackageStartupMessages(library(dplyr))
+
+# Convert string inputs to data frames
+books <- read.csv(text = paste(books_data, collapse = "\n"), stringsAsFactors = FALSE)
+ratings <- read.csv(text = paste(ratings_data, collapse = "\n"), stringsAsFactors = FALSE)
+
+# TODO: Write your code below
+# Perform the required join operations and calculations
+
+# Function to perform join operations
+perform_joins <- function(books, ratings) {
+  # Your code here
+  # Return a list containing all four join results
+  list(
+    inner_join = inner_join(books, ratings, by = "book_id") %>% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    left_join = left_join(books, ratings, by = "book_id") %>% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    right_join = right_join(books, ratings, by = "book_id") %>% mutate(num_ratings = ifelse(is.na(rating), 0, 1)),
+    full_join = full_join(books, ratings, by = "book_id") %>% mutate(num_ratings = ifelse(is.na(rating), 0, 1))
+  )
+}
+# I think this is a poor challenge because num_ratings is actually has_rating with 0 or 1 being TRUE FALSE. There were no test cases of the same book being rated twice which would actually require you to count the number of ratings.
+
+# Call the function and store the results
+join_results <- perform_joins(books, ratings)
+results <- join_results
+
+# Print the results
+print(results)
+```
