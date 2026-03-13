@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-11" />
+<meta name="date" content="2026-03-12" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-11</h4>
+<h4 class="date">2026-03-12</h4>
 
 </div>
 
@@ -2274,6 +2274,78 @@ results &lt;- join_results
 
 # Print the results
 print(results)</code></pre>
+</div>
+</div>
+</div>
+<div id="reshaping-data" class="section level2">
+<h2>Reshaping Data</h2>
+<div id="wide-to-long-format" class="section level3">
+<h3>Wide to Long Format</h3>
+<p>In this lesson, we’ll focus on using the pivot_longer() function from
+the tidyr package to convert data from wide to long format.</p>
+<div id="understanding-wide-and-long-formats" class="section level4">
+<h4>Understanding Wide and Long Formats</h4>
+<ul>
+<li>Wide format: Each variable has its own column.</li>
+<li>Long format: Variables are stored in key-value pairs, with one
+column for the variable names and another for the values.</li>
+</ul>
+</div>
+<div id="the-pivot_longer-function" class="section level4">
+<h4>The pivot_longer() Function</h4>
+<p>The pivot_longer() function from tidyr is used to transform data from
+wide to long format. Here’s its basic syntax:</p>
+<pre class="r"><code>pivot_longer(data, cols, names_to = &quot;key&quot;, values_to = &quot;value&quot;)</code></pre>
+</div>
+<div id="example" class="section level4">
+<h4>Example</h4>
+<pre class="r"><code># Create a sample wide format dataset
+wide_data &lt;- data.frame(
+  name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
+  math = c(85, 76, 90),
+  science = c(92, 88, 75),
+  history = c(78, 82, 85)
+)
+
+# Convert to long format
+long_data &lt;- pivot_longer(wide_data, 
+                          cols = c(math, science, history),
+                          names_to = &quot;subject&quot;,
+                          values_to = &quot;score&quot;)
+
+print(long_data)</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   name    subject score
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Alice   math       85
+## 2 Alice   science    92
+## 3 Alice   history    78
+## 4 Bob     math       76
+## 5 Bob     science    88
+## 6 Bob     history    82
+## 7 Charlie math       90
+## 8 Charlie science    75
+## 9 Charlie history    85</code></pre>
+<p>Instead of having 4 columns: name, math, science and history we have
+3 columns: name, subject, score</p>
+</div>
+<div id="understanding-the-arguments" class="section level4">
+<h4>Understanding the Arguments</h4>
+<ul>
+<li>cols: Specifies which columns to pivot into longer format.</li>
+<li>names_to: Names the new column that will contain the column names
+from the wide format.</li>
+<li>values_to: Names the new column that will contain the values.</li>
+</ul>
+</div>
+<div id="importance-in-data-analysis" class="section level4">
+<h4>Importance in Data Analysis</h4>
+<p>Long format data is often preferred because it’s:</p>
+<ul>
+<li>Easier to manipulate and analyze with tools like dplyr</li>
+<li>More suitable for statistical modeling and visualization</li>
+<li>Consistent with the principles of tidy data</li>
+</ul>
 </div>
 </div>
 </div>

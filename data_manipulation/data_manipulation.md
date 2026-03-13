@@ -1023,3 +1023,76 @@ results <- join_results
 # Print the results
 print(results)
 ```
+
+## Reshaping Data
+
+### Wide to Long Format
+
+In this lesson, we’ll focus on using the pivot_longer() function from
+the tidyr package to convert data from wide to long format.
+
+#### Understanding Wide and Long Formats
+
+- Wide format: Each variable has its own column.
+- Long format: Variables are stored in key-value pairs, with one column
+  for the variable names and another for the values.
+
+#### The pivot_longer() Function
+
+The pivot_longer() function from tidyr is used to transform data from
+wide to long format. Here’s its basic syntax:
+
+``` r
+pivot_longer(data, cols, names_to = "key", values_to = "value")
+```
+
+#### Example
+
+``` r
+# Create a sample wide format dataset
+wide_data <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  math = c(85, 76, 90),
+  science = c(92, 88, 75),
+  history = c(78, 82, 85)
+)
+
+# Convert to long format
+long_data <- pivot_longer(wide_data, 
+                          cols = c(math, science, history),
+                          names_to = "subject",
+                          values_to = "score")
+
+print(long_data)
+```
+
+    ## # A tibble: 9 × 3
+    ##   name    subject score
+    ##   <chr>   <chr>   <dbl>
+    ## 1 Alice   math       85
+    ## 2 Alice   science    92
+    ## 3 Alice   history    78
+    ## 4 Bob     math       76
+    ## 5 Bob     science    88
+    ## 6 Bob     history    82
+    ## 7 Charlie math       90
+    ## 8 Charlie science    75
+    ## 9 Charlie history    85
+
+Instead of having 4 columns: name, math, science and history we have 3
+columns: name, subject, score
+
+#### Understanding the Arguments
+
+- cols: Specifies which columns to pivot into longer format.
+- names_to: Names the new column that will contain the column names from
+  the wide format.
+- values_to: Names the new column that will contain the values.
+
+#### Importance in Data Analysis
+
+Long format data is often preferred because it’s:
+
+- Easier to manipulate and analyze with tools like dplyr
+- More suitable for statistical modeling and visualization
+- Consistent with the principles of tidy data
