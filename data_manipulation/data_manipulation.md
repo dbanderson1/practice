@@ -1096,3 +1096,36 @@ Long format data is often preferred because it’s:
 - Easier to manipulate and analyze with tools like dplyr
 - More suitable for statistical modeling and visualization
 - Consistent with the principles of tidy data
+
+#### Challenge
+
+``` r
+# Read input
+con <- file("stdin", "r")
+input_string <- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+data <- read.csv(text = input_string, stringsAsFactors = FALSE)
+
+# Load required package
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(dplyr))
+
+# TODO: Write your code below to transform the data
+# Use pivot_longer() to transform from wide to long format
+# Rename columns to "subject" and "score"
+# Arrange the data by student name and then by subject
+
+
+# Convert to long format
+long_data <- pivot_longer(data, 
+                          cols = c(math, science, history, english),
+                          names_to = "subject",
+                          values_to = "score") %>% 
+                          arrange(subject) %>%
+                          arrange(student)
+
+
+# Print the resulting long-format data frame
+print(long_data)
+```

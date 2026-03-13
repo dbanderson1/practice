@@ -2347,6 +2347,37 @@ from the wide format.</li>
 <li>Consistent with the principles of tidy data</li>
 </ul>
 </div>
+<div id="challenge-2" class="section level4">
+<h4>Challenge</h4>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_string &lt;- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+data &lt;- read.csv(text = input_string, stringsAsFactors = FALSE)
+
+# Load required package
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(dplyr))
+
+# TODO: Write your code below to transform the data
+# Use pivot_longer() to transform from wide to long format
+# Rename columns to &quot;subject&quot; and &quot;score&quot;
+# Arrange the data by student name and then by subject
+
+
+# Convert to long format
+long_data &lt;- pivot_longer(data, 
+                          cols = c(math, science, history, english),
+                          names_to = &quot;subject&quot;,
+                          values_to = &quot;score&quot;) %&gt;% 
+                          arrange(subject) %&gt;%
+                          arrange(student)
+
+
+# Print the resulting long-format data frame
+print(long_data)</code></pre>
+</div>
 </div>
 </div>
 </div>
