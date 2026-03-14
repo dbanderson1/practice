@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-12" />
+<meta name="date" content="2026-03-13" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-12</h4>
+<h4 class="date">2026-03-13</h4>
 
 </div>
 
@@ -2377,6 +2377,111 @@ long_data &lt;- pivot_longer(data,
 
 # Print the resulting long-format data frame
 print(long_data)</code></pre>
+</div>
+</div>
+<div id="long-to-wide-format" class="section level3">
+<h3>Long to Wide Format</h3>
+<div id="long-to-wide-format-1" class="section level4">
+<h4>Long to Wide Format</h4>
+<p>Converting data from long to wide format is an essential skill in
+data manipulation, particularly useful for creating more compact
+representations of data. In this lesson, we’ll focus on using the
+pivot_wider() function from the tidyr package to transform data from
+long to wide format.</p>
+</div>
+<div id="understanding-long-and-wide-formats" class="section level4">
+<h4>Understanding Long and Wide Formats</h4>
+<ul>
+<li>Long format: Variables are stored in key-value pairs, with one
+column for the variable names and another for the values.</li>
+<li>Wide format: Each variable has its own column.</li>
+</ul>
+</div>
+<div id="the-pivot_wider-function" class="section level4">
+<h4>The pivot_wider() Function</h4>
+<p>The pivot_wider() function from tidyr is used to transform data from
+long to wide format. Here’s its basic syntax:</p>
+<pre class="r"><code>pivot_wider(data, names_from = &quot;key&quot;, values_from = &quot;value&quot;)</code></pre>
+</div>
+<div id="example-using-pivot_wider" class="section level4">
+<h4>Example: Using pivot_wider()</h4>
+<p>Let’s look at an example:</p>
+<pre class="r"><code># Create a sample long format dataset
+long_data &lt;- data.frame(
+  name = c(&quot;Alice&quot;, &quot;Alice&quot;, &quot;Alice&quot;, &quot;Bob&quot;, &quot;Bob&quot;, &quot;Bob&quot;),
+  subject = c(&quot;math&quot;, &quot;science&quot;, &quot;history&quot;, &quot;math&quot;, &quot;science&quot;, &quot;history&quot;),
+  score = c(85, 92, 78, 76, 88, 82)
+)
+
+# Convert to wide format
+wide_data &lt;- pivot_wider(long_data, 
+                         names_from = &quot;subject&quot;,
+                         values_from = &quot;score&quot;)
+
+print(wide_data)</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##   name   math science history
+##   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Alice    85      92      78
+## 2 Bob      76      88      82</code></pre>
+</div>
+<div id="understanding-the-arguments-1" class="section level4">
+<h4>Understanding the Arguments</h4>
+<ul>
+<li>names_from: Specifies which column contains the names for the new
+columns in the wide format.</li>
+<li>values_from: Specifies which column contains the values for the new
+columns.</li>
+</ul>
+</div>
+<div id="handling-multiple-value-columns" class="section level4">
+<h4>Handling Multiple Value Columns</h4>
+<p>You can pivot multiple value columns simultaneously:</p>
+<pre class="r"><code>long_data_multi &lt;- data.frame(
+  name = c(&quot;Alice&quot;, &quot;Alice&quot;, &quot;Bob&quot;, &quot;Bob&quot;),
+  year = c(2022, 2023, 2022, 2023),
+  score = c(85, 90, 76, 82),
+  rank = c(2, 1, 3, 2)
+)
+
+wide_data_multi &lt;- pivot_wider(long_data_multi,
+                               names_from = year,
+                               values_from = c(score, rank))
+
+print(wide_data_multi)</code></pre>
+<pre><code>## # A tibble: 2 × 5
+##   name  score_2022 score_2023 rank_2022 rank_2023
+##   &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Alice         85         90         2         1
+## 2 Bob           76         82         3         2</code></pre>
+<p>By mastering the pivot_wider() function, you’ll be able to
+efficiently reshape your data from long to wide format, creating more
+compact representations for specific analysis needs in R.</p>
+</div>
+<div id="challenge-3" class="section level4">
+<h4>Challenge</h4>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_string &lt;- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+df &lt;- read.csv(text = input_string, stringsAsFactors = FALSE)
+
+# Load required library
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(dplyr))
+
+# TODO: Write your code below to transform the data frame
+# Hint: Use pivot_wider() function to transform from long to wide format
+# Don&#39;t forget to arrange the resulting data frame by student name
+
+wide_df &lt;- pivot_wider(df,
+    names_from = subject,
+    values_from = grade
+) %&gt;% arrange(student)
+
+# Print the result
+print(wide_df)</code></pre>
 </div>
 </div>
 </div>

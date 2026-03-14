@@ -794,3 +794,93 @@ long_data <- pivot_longer(data,
 print(long_data)
 ```
 
+### Long to Wide Format
+
+#### Long to Wide Format
+
+Converting data from long to wide format is an essential skill in data manipulation, particularly useful for creating more compact representations of data. In this lesson, we'll focus on using the pivot_wider() function from the tidyr package to transform data from long to wide format.
+
+#### Understanding Long and Wide Formats
+
+- Long format: Variables are stored in key-value pairs, with one column for the variable names and another for the values.
+- Wide format: Each variable has its own column.
+
+#### The pivot_wider() Function
+
+The pivot_wider() function from tidyr is used to transform data from long to wide format. Here's its basic syntax:
+
+```{r eval=FALSE}
+pivot_wider(data, names_from = "key", values_from = "value")
+```
+
+#### Example: Using pivot_wider()
+
+Let's look at an example:
+
+```{r}
+# Create a sample long format dataset
+long_data <- data.frame(
+  name = c("Alice", "Alice", "Alice", "Bob", "Bob", "Bob"),
+  subject = c("math", "science", "history", "math", "science", "history"),
+  score = c(85, 92, 78, 76, 88, 82)
+)
+
+# Convert to wide format
+wide_data <- pivot_wider(long_data, 
+                         names_from = "subject",
+                         values_from = "score")
+
+print(wide_data)
+```
+#### Understanding the Arguments
+
+- names_from: Specifies which column contains the names for the new columns in the wide format.
+- values_from: Specifies which column contains the values for the new columns.
+
+#### Handling Multiple Value Columns
+
+You can pivot multiple value columns simultaneously:
+
+```{r}
+long_data_multi <- data.frame(
+  name = c("Alice", "Alice", "Bob", "Bob"),
+  year = c(2022, 2023, 2022, 2023),
+  score = c(85, 90, 76, 82),
+  rank = c(2, 1, 3, 2)
+)
+
+wide_data_multi <- pivot_wider(long_data_multi,
+                               names_from = year,
+                               values_from = c(score, rank))
+
+print(wide_data_multi)
+```
+By mastering the pivot_wider() function, you'll be able to efficiently reshape your data from long to wide format, creating more compact representations for specific analysis needs in R.
+
+#### Challenge
+
+```{r, eval=FALSE}
+# Read input
+con <- file("stdin", "r")
+input_string <- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+df <- read.csv(text = input_string, stringsAsFactors = FALSE)
+
+# Load required library
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(dplyr))
+
+# TODO: Write your code below to transform the data frame
+# Hint: Use pivot_wider() function to transform from long to wide format
+# Don't forget to arrange the resulting data frame by student name
+
+wide_df <- pivot_wider(df,
+    names_from = subject,
+    values_from = grade
+) %>% arrange(student)
+
+# Print the result
+print(wide_df)
+```
+
