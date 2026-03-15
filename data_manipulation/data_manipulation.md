@@ -1243,3 +1243,102 @@ wide_df <- pivot_wider(df,
 # Print the result
 print(wide_df)
 ```
+
+### Handling Missing Data
+
+Missing values are typically represented as **NA (Not Available)**.
+Let’s explore strategies to identify, remove, and impute missing values.
+
+#### Identifying Missing Data
+
+To check for missing values in R, you can use the following functions:
+
+``` r
+# Check if a value is NA
+is.na(x)
+
+# Count NAs in a vector
+sum(is.na(x))
+
+# Identify rows with any NA in a data frame
+complete.cases(df)
+```
+
+#### Removing Missing Data
+
+You can remove rows with missing values using these methods:
+
+``` r
+# Remove rows with any NA
+df_clean <- na.omit(df)
+
+# Using dplyr to remove rows with NA in specific columns
+# needs library(dplyr)
+df_clean <- df %>% filter(!is.na(column_name))
+```
+
+#### Imputing Missing Data
+
+Imputation involves replacing missing values with estimated ones. Here
+are some common imputation techniques:
+
+``` r
+# Mean imputation
+df$column[is.na(df$column)] <- mean(df$column, na.rm = TRUE)
+
+# Median imputation
+df$column[is.na(df$column)] <- median(df$column, na.rm = TRUE)
+
+# Mode imputation for categorical data
+mode_value <- names(sort(table(df$category), decreasing = TRUE))[1]
+df$category[is.na(df$category)] <- mode_value
+```
+
+#### Challenge
+
+``` r
+# Load Packages
+suppressPackageStartupMessages(library(dplyr))
+
+# Read input
+con <- file("stdin", "r")
+input_string <- suppressWarnings(readLines(con))
+
+# Convert input string to data frame
+data <- read.csv(text = input_string, stringsAsFactors = FALSE)
+
+# TODO: Write your code below
+# 1. Identify and count missing values
+missing_counts <- colSums(is.na(data))
+# 2. Remove rows with missing values in 'age' or 'test_result'
+data$row_id <- seq_len(nrow(data)) # added to preserve row ID
+
+clean_data <- data %>%
+  filter(!is.na(age) & !is.na(test_result))
+
+rows_removed <- nrow(data) - nrow(clean_data)
+
+rownames(clean_data) <- clean_data$row_id # added to restore row ID
+clean_data$row_id <- NULL
+
+# 3. Impute missing values in 'blood_pressure'
+median_bp <- median(clean_data$blood_pressure, na.rm = TRUE)
+clean_data$blood_pressure[is.na(clean_data$blood_pressure)] <- median_bp
+# 4. Create 'status' column
+clean_data <- clean_data %>% 
+mutate(status = ifelse(test_result >= 50, "Elevated",
+    ifelse(test_result < 50, "Normal",
+    "Unknown")))
+
+# 5. Print required information
+
+# Placeholder for output
+cat("Missing values in each column before processing:\n")
+print(missing_counts)
+cat("\nNumber of rows removed:\n")
+print(rows_removed)
+cat("\nMedian blood pressure used for imputation:\n")
+print(median_bp)
+cat("\nProcessed data:\n")
+print(clean_data)
+```
