@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-15" />
+<meta name="date" content="2026-03-16" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-15</h4>
+<h4 class="date">2026-03-16</h4>
 
 </div>
 
@@ -2599,6 +2599,9 @@ pattern:</p>
 <pre class="r"><code>text &lt;- &quot;Hello world&quot;
 str_replace(text, &quot;world&quot;, &quot;R&quot;)  # Returns: &quot;Hello R&quot;</code></pre>
 <pre><code>## [1] &quot;Hello R&quot;</code></pre>
+<pre class="r"><code>text &lt;- &quot;data science with r&quot;
+str_replace_all(text, &quot; &quot;, &quot;_&quot;)</code></pre>
+<pre><code>## [1] &quot;data_science_with_r&quot;</code></pre>
 </div>
 <div id="splitting-strings" class="section level4">
 <h4>Splitting Strings</h4>
@@ -2622,6 +2625,112 @@ first letter of each word in a string.</p>
 <pre class="r"><code>text &lt;- &quot;apple,banana,cherry&quot;
 str_to_title(text)</code></pre>
 <pre><code>## [1] &quot;Apple,Banana,Cherry&quot;</code></pre>
+</div>
+<div id="extract-strings" class="section level4">
+<h4>Extract Strings</h4>
+<p>str_extract() returns the part of the string that matches the
+pattern.</p>
+<pre class="r"><code>emails &lt;- c(&quot;john123@gmail.com&quot;, &quot;alice99@yahoo.com&quot;, &quot;dba0013@auburn.edu&quot;)
+
+str_extract(emails, &quot;^[^@]+&quot;)</code></pre>
+<pre><code>## [1] &quot;john123&quot; &quot;alice99&quot; &quot;dba0013&quot;</code></pre>
+</div>
+<div id="understanding-regex" class="section level4">
+<h4>Understanding Regex</h4>
+<p>Regex is read symbol-by-symbol.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>^</code></td>
+<td>start of the string</td>
+</tr>
+<tr class="even">
+<td><code>[^@]</code></td>
+<td>any character <strong>except <code>@</code></strong></td>
+</tr>
+<tr class="odd">
+<td><code>+</code></td>
+<td>one or more of the previous pattern</td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>end of string</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>\\d</code></td>
+<td>any digit</td>
+</tr>
+<tr class="even">
+<td><code>\\D</code></td>
+<td>non-digit</td>
+</tr>
+<tr class="odd">
+<td><code>\\w</code></td>
+<td>word character</td>
+</tr>
+<tr class="even">
+<td><code>\\W</code></td>
+<td>non-word character</td>
+</tr>
+<tr class="odd">
+<td><code>\\s</code></td>
+<td>whitespace</td>
+</tr>
+<tr class="even">
+<td><code>\\S</code></td>
+<td>non-whitespace</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[0-9]</code></td>
+<td>digits</td>
+</tr>
+<tr class="even">
+<td><code>[a-z]</code></td>
+<td>lowercase letters</td>
+</tr>
+<tr class="odd">
+<td><code>[A-Z]</code></td>
+<td>uppercase letters</td>
+</tr>
+<tr class="even">
+<td><code>[a-zA-Z]</code></td>
+<td>any letter</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># examples
+# start of string → until @
+str_extract(emails, &quot;^[^@]+&quot;)</code></pre>
+<pre><code>## [1] &quot;john123&quot; &quot;alice99&quot; &quot;dba0013&quot;</code></pre>
+<pre class="r"><code># end of emails
+str_extract(emails, &quot;@.*$&quot;)</code></pre>
+<pre><code>## [1] &quot;@gmail.com&quot;  &quot;@yahoo.com&quot;  &quot;@auburn.edu&quot;</code></pre>
 </div>
 <div id="stringr-challenge" class="section level4">
 <h4>stringr Challenge</h4>

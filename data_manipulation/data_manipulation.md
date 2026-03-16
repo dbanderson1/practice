@@ -1378,6 +1378,13 @@ str_replace(text, "world", "R")  # Returns: "Hello R"
 
     ## [1] "Hello R"
 
+``` r
+text <- "data science with r"
+str_replace_all(text, " ", "_")
+```
+
+    ## [1] "data_science_with_r"
+
 #### Splitting Strings
 
 Split strings into a character vector with str_split():
@@ -1412,6 +1419,60 @@ str_to_title(text)
 ```
 
     ## [1] "Apple,Banana,Cherry"
+
+#### Extract Strings
+
+str_extract() returns the part of the string that matches the pattern.
+
+``` r
+emails <- c("john123@gmail.com", "alice99@yahoo.com", "dba0013@auburn.edu")
+
+str_extract(emails, "^[^@]+")
+```
+
+    ## [1] "john123" "alice99" "dba0013"
+
+#### Understanding Regex
+
+Regex is read symbol-by-symbol.
+
+| Symbol | Meaning                             |
+|--------|-------------------------------------|
+| `^`    | start of the string                 |
+| `[^@]` | any character **except `@`**        |
+| `+`    | one or more of the previous pattern |
+| `$`    | end of string                       |
+
+| Pattern | Meaning            |
+|---------|--------------------|
+| `\\d`   | any digit          |
+| `\\D`   | non-digit          |
+| `\\w`   | word character     |
+| `\\W`   | non-word character |
+| `\\s`   | whitespace         |
+| `\\S`   | non-whitespace     |
+
+| Pattern    | Meaning           |
+|------------|-------------------|
+| `[0-9]`    | digits            |
+| `[a-z]`    | lowercase letters |
+| `[A-Z]`    | uppercase letters |
+| `[a-zA-Z]` | any letter        |
+
+``` r
+# examples
+# start of string → until @
+str_extract(emails, "^[^@]+")
+```
+
+    ## [1] "john123" "alice99" "dba0013"
+
+``` r
+# end of emails
+str_extract(emails, "@.*$")
+```
+
+    ## [1] "@gmail.com"  "@yahoo.com"  "@auburn.edu"
 
 #### stringr Challenge
 
