@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-14" />
+<meta name="date" content="2026-03-15" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-14</h4>
+<h4 class="date">2026-03-15</h4>
 
 </div>
 
@@ -2572,6 +2572,88 @@ cat(&quot;\nMedian blood pressure used for imputation:\n&quot;)
 print(median_bp)
 cat(&quot;\nProcessed data:\n&quot;)
 print(clean_data)</code></pre>
+</div>
+</div>
+</div>
+<div id="advanced-manipulation" class="section level2">
+<h2>Advanced Manipulation</h2>
+<div id="string-manipulation" class="section level3">
+<h3>String Manipulation</h3>
+<p>The stringr package provides a comprehensive set of functions for
+working with strings.</p>
+<div id="loading-the-stringr-package" class="section level4">
+<h4>Loading the stringr package</h4>
+<pre class="r"><code>library(stringr)</code></pre>
+</div>
+<div id="pattern-matching" class="section level4">
+<h4>Pattern Matching</h4>
+<p>The str_detect() function checks if a pattern exists in a string:</p>
+<pre class="r"><code>text &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;)
+str_detect(text, &quot;an&quot;)  # Returns: FALSE TRUE FALSE</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE</code></pre>
+</div>
+<div id="string-replacement" class="section level4">
+<h4>String Replacement</h4>
+<p>The str_replace() function replaces the first occurrence of a
+pattern:</p>
+<pre class="r"><code>text &lt;- &quot;Hello world&quot;
+str_replace(text, &quot;world&quot;, &quot;R&quot;)  # Returns: &quot;Hello R&quot;</code></pre>
+<pre><code>## [1] &quot;Hello R&quot;</code></pre>
+</div>
+<div id="splitting-strings" class="section level4">
+<h4>Splitting Strings</h4>
+<p>Split strings into a character vector with str_split():</p>
+<pre class="r"><code>text &lt;- &quot;apple,banana,cherry&quot;
+str_split(text, &quot;,&quot;)  # Returns a list: list(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;apple&quot;  &quot;banana&quot; &quot;cherry&quot;</code></pre>
+</div>
+<div id="trimming-whitespace" class="section level4">
+<h4>Trimming Whitespace</h4>
+<p>Remove leading and trailing whitespace using str_trim():</p>
+<pre class="r"><code>text &lt;- &quot;  Hello, R!  &quot;
+str_trim(text)  # Returns: &quot;Hello, R!&quot;</code></pre>
+<pre><code>## [1] &quot;Hello, R!&quot;</code></pre>
+</div>
+<div id="capitalize" class="section level4">
+<h4>Capitalize</h4>
+<p>You can use the str_to_title() function for this. It capitalizes the
+first letter of each word in a string.</p>
+<pre class="r"><code>text &lt;- &quot;apple,banana,cherry&quot;
+str_to_title(text)</code></pre>
+<pre><code>## [1] &quot;Apple,Banana,Cherry&quot;</code></pre>
+</div>
+<div id="stringr-challenge" class="section level4">
+<h4>stringr Challenge</h4>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+email_list &lt;- suppressWarnings(readLines(con))
+
+suppressPackageStartupMessages(library(stringr))
+
+process_emails &lt;- function(email_list) {
+  # Split the email list into individual email addresses
+  emails &lt;- str_split(email_list, &quot;,\\s*&quot;)[[1]]
+  
+  # 1. Extract usernames
+  usernames &lt;- str_extract(emails, &quot;^[^@]+&quot;) #needed AI because this wasn&#39;t covered in the modules
+  
+  # 2-4. Replace numbers, capitalize, and trim whitespace
+  processed_usernames &lt;- usernames %&gt;%
+    str_replace_all(&quot;\\d&quot;, &quot;_&quot;) %&gt;%
+    str_to_title() %&gt;%
+    str_trim()
+  
+  # 5. Join processed usernames with commas
+  processed_usernames &lt;- str_c(processed_usernames, collapse = &quot;, &quot;)
+  
+  # Return the processed usernames as a comma-separated string
+  return(processed_usernames)
+}
+
+# Call the function and print the result
+result &lt;- process_emails(email_list)
+cat(result)</code></pre>
 </div>
 </div>
 </div>

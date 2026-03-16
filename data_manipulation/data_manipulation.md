@@ -1342,3 +1342,107 @@ print(median_bp)
 cat("\nProcessed data:\n")
 print(clean_data)
 ```
+
+## Advanced Manipulation
+
+### String Manipulation
+
+The stringr package provides a comprehensive set of functions for
+working with strings.
+
+#### Loading the stringr package
+
+``` r
+library(stringr)
+```
+
+#### Pattern Matching
+
+The str_detect() function checks if a pattern exists in a string:
+
+``` r
+text <- c("apple", "banana", "cherry")
+str_detect(text, "an")  # Returns: FALSE TRUE FALSE
+```
+
+    ## [1] FALSE  TRUE FALSE
+
+#### String Replacement
+
+The str_replace() function replaces the first occurrence of a pattern:
+
+``` r
+text <- "Hello world"
+str_replace(text, "world", "R")  # Returns: "Hello R"
+```
+
+    ## [1] "Hello R"
+
+#### Splitting Strings
+
+Split strings into a character vector with str_split():
+
+``` r
+text <- "apple,banana,cherry"
+str_split(text, ",")  # Returns a list: list("apple", "banana", "cherry")
+```
+
+    ## [[1]]
+    ## [1] "apple"  "banana" "cherry"
+
+#### Trimming Whitespace
+
+Remove leading and trailing whitespace using str_trim():
+
+``` r
+text <- "  Hello, R!  "
+str_trim(text)  # Returns: "Hello, R!"
+```
+
+    ## [1] "Hello, R!"
+
+#### Capitalize
+
+You can use the str_to_title() function for this. It capitalizes the
+first letter of each word in a string.
+
+``` r
+text <- "apple,banana,cherry"
+str_to_title(text)
+```
+
+    ## [1] "Apple,Banana,Cherry"
+
+#### stringr Challenge
+
+``` r
+# Read input
+con <- file("stdin", "r")
+email_list <- suppressWarnings(readLines(con))
+
+suppressPackageStartupMessages(library(stringr))
+
+process_emails <- function(email_list) {
+  # Split the email list into individual email addresses
+  emails <- str_split(email_list, ",\\s*")[[1]]
+  
+  # 1. Extract usernames
+  usernames <- str_extract(emails, "^[^@]+") #needed AI because this wasn't covered in the modules
+  
+  # 2-4. Replace numbers, capitalize, and trim whitespace
+  processed_usernames <- usernames %>%
+    str_replace_all("\\d", "_") %>%
+    str_to_title() %>%
+    str_trim()
+  
+  # 5. Join processed usernames with commas
+  processed_usernames <- str_c(processed_usernames, collapse = ", ")
+  
+  # Return the processed usernames as a comma-separated string
+  return(processed_usernames)
+}
+
+# Call the function and print the result
+result <- process_emails(email_list)
+cat(result)
+```
