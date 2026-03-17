@@ -1220,3 +1220,104 @@ events_df <- events_df %>%
 print(events_df)
 ```
 
+### Custom Functions
+
+Custom functions in R are powerful tools for creating reusable code and performing complex data transformations. They allow you to encapsulate a series of operations into a single, callable unit. Let's explore how to create and use custom functions for data manipulation tasks.
+
+#### Basic Structure of a Custom Function
+
+The basic syntax for creating a custom function in R is:
+
+```{r eval=FALSE}
+function_name <- function(arg1, arg2, ...) {
+  # Function body
+  # Operations using arg1, arg2, etc.
+  return(result)
+}
+```
+
+#### Creating a Simple Custom Function
+
+Let's create a simple function that calculates the percentage of missing values in a vector:
+
+```{r}
+percent_missing <- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+# Usage
+data <- c(1, 2, NA, 4, NA, 6)
+percent_missing(data)  # Returns: 33.33333
+```
+
+#### Using Custom Functions with dplyr
+
+Custom functions can be particularly useful when combined with dplyr for data manipulation:
+
+```{r}
+library(dplyr)
+
+categorize_age <- function(age) {
+  case_when(
+    age < 18 ~ "Child",
+    age < 65 ~ "Adult",
+    TRUE ~ "Senior"
+  )
+}
+
+# Usage with dplyr
+df <- data.frame(name = c("Alice", "Bob", "Charlie"), age = c(25, 72, 16))
+df %>%
+  mutate(age_category = categorize_age(age))
+```
+#### Custom Function Challenge
+
+Create a custom function named mean_score that calculates the average score for each student on a dataset of student exam scores.
+
+To calculate the average score across each row we will use the rowwise() function and later on we will use ungroup() to return everything to where it was. Check the provided code.
+
+Perform the following actions:
+
+1. Create a new column named student_mean that holds the average score.
+2. Create a new column named is_above_mean that holds TRUE or FALSE if the student is above or below the average.
+3. Create a column named rank that holds the place of each student relative to others based on their average. For example, 1 means the student is the best, 2 means the student is the second best, etc.
+  - To find the rank use order(): order(order(mean_col, decreasing = TRUE))
+
+```{r eval=FALSE}
+# Read input
+con <- file("stdin", "r")
+input_data <- suppressWarnings(readLines(con))
+close(con)
+
+# Process input data into a data frame
+data <- read.csv(text = input_data, header = TRUE, stringsAsFactors = FALSE)
+
+suppressPackageStartupMessages(library(dplyr))
+
+# Define the mean_score function
+mean_score <- function(data) {
+# TODO: Write your code here
+# calculate the average of all subjects
+# TODOL Write you code here
+# Create a new column named student_mean that holds the average score.
+# Create a new column named is_above_mean that holds TRUE or FALSE if the student is above or below the average.
+# Create a column named rank that holds the place of each student relative to others based on their average. For example, 1 means the student is the best, 2 means the student is the second best, etc.
+  data %>%
+    rowwise() %>%
+    mutate(
+      student_mean = mean(c(Math, Science, English, History))
+    ) %>%
+    ungroup() %>%
+    mutate(
+      mean_student_mean = mean(student_mean),
+      is_above_mean = student_mean > mean_student_mean,
+      rank = order(order(student_mean, decreasing = TRUE))
+    ) %>%
+    mutate(mean_student_mean = NULL)
+}
+# Run Function
+mean_score(data)
+
+
+```
+

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Derek Anderson" />
 
-<meta name="date" content="2026-03-16" />
+<meta name="date" content="2026-03-17" />
 
 <title>Data Manipulation</title>
 
@@ -1481,7 +1481,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Data Manipulation</h1>
 <h4 class="author">Derek Anderson</h4>
-<h4 class="date">2026-03-16</h4>
+<h4 class="date">2026-03-17</h4>
 
 </div>
 
@@ -2818,7 +2818,7 @@ print(parsed_date)</code></pre>
 <pre class="r"><code>today &lt;- Sys.Date()
 next_week &lt;- today + 7  # Add 7 days
 print(next_week)</code></pre>
-<pre><code>## [1] &quot;2026-03-23&quot;</code></pre>
+<pre><code>## [1] &quot;2026-03-24&quot;</code></pre>
 <pre class="r"><code>time_diff &lt;- as.numeric(next_week - today)  # Get difference in days
 cat(time_diff, &quot;days&quot;)</code></pre>
 <pre><code>## 7 days</code></pre>
@@ -2859,6 +2859,114 @@ events_df &lt;- events_df %&gt;%
   select(event, day_of_week, duration_hours, date, time_category)
 
 print(events_df)</code></pre>
+</div>
+</div>
+<div id="custom-functions" class="section level3">
+<h3>Custom Functions</h3>
+<p>Custom functions in R are powerful tools for creating reusable code
+and performing complex data transformations. They allow you to
+encapsulate a series of operations into a single, callable unit. Let’s
+explore how to create and use custom functions for data manipulation
+tasks.</p>
+<div id="basic-structure-of-a-custom-function" class="section level4">
+<h4>Basic Structure of a Custom Function</h4>
+<p>The basic syntax for creating a custom function in R is:</p>
+<pre class="r"><code>function_name &lt;- function(arg1, arg2, ...) {
+  # Function body
+  # Operations using arg1, arg2, etc.
+  return(result)
+}</code></pre>
+</div>
+<div id="creating-a-simple-custom-function" class="section level4">
+<h4>Creating a Simple Custom Function</h4>
+<p>Let’s create a simple function that calculates the percentage of
+missing values in a vector:</p>
+<pre class="r"><code>percent_missing &lt;- function(x) {
+  sum(is.na(x)) / length(x) * 100
+}
+
+# Usage
+data &lt;- c(1, 2, NA, 4, NA, 6)
+percent_missing(data)  # Returns: 33.33333</code></pre>
+<pre><code>## [1] 33.33333</code></pre>
+</div>
+<div id="using-custom-functions-with-dplyr" class="section level4">
+<h4>Using Custom Functions with dplyr</h4>
+<p>Custom functions can be particularly useful when combined with dplyr
+for data manipulation:</p>
+<pre class="r"><code>library(dplyr)
+
+categorize_age &lt;- function(age) {
+  case_when(
+    age &lt; 18 ~ &quot;Child&quot;,
+    age &lt; 65 ~ &quot;Adult&quot;,
+    TRUE ~ &quot;Senior&quot;
+  )
+}
+
+# Usage with dplyr
+df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;), age = c(25, 72, 16))
+df %&gt;%
+  mutate(age_category = categorize_age(age))</code></pre>
+<pre><code>##      name age age_category
+## 1   Alice  25        Adult
+## 2     Bob  72       Senior
+## 3 Charlie  16        Child</code></pre>
+</div>
+<div id="custom-function-challenge" class="section level4">
+<h4>Custom Function Challenge</h4>
+<p>Create a custom function named mean_score that calculates the average
+score for each student on a dataset of student exam scores.</p>
+<p>To calculate the average score across each row we will use the
+rowwise() function and later on we will use ungroup() to return
+everything to where it was. Check the provided code.</p>
+<p>Perform the following actions:</p>
+<ol style="list-style-type: decimal">
+<li>Create a new column named student_mean that holds the average
+score.</li>
+<li>Create a new column named is_above_mean that holds TRUE or FALSE if
+the student is above or below the average.</li>
+<li>Create a column named rank that holds the place of each student
+relative to others based on their average. For example, 1 means the
+student is the best, 2 means the student is the second best, etc.</li>
+</ol>
+<ul>
+<li>To find the rank use order(): order(order(mean_col, decreasing =
+TRUE))</li>
+</ul>
+<pre class="r"><code># Read input
+con &lt;- file(&quot;stdin&quot;, &quot;r&quot;)
+input_data &lt;- suppressWarnings(readLines(con))
+close(con)
+
+# Process input data into a data frame
+data &lt;- read.csv(text = input_data, header = TRUE, stringsAsFactors = FALSE)
+
+suppressPackageStartupMessages(library(dplyr))
+
+# Define the mean_score function
+mean_score &lt;- function(data) {
+# TODO: Write your code here
+# calculate the average of all subjects
+# TODOL Write you code here
+# Create a new column named student_mean that holds the average score.
+# Create a new column named is_above_mean that holds TRUE or FALSE if the student is above or below the average.
+# Create a column named rank that holds the place of each student relative to others based on their average. For example, 1 means the student is the best, 2 means the student is the second best, etc.
+  data %&gt;%
+    rowwise() %&gt;%
+    mutate(
+      student_mean = mean(c(Math, Science, English, History))
+    ) %&gt;%
+    ungroup() %&gt;%
+    mutate(
+      mean_student_mean = mean(student_mean),
+      is_above_mean = student_mean &gt; mean_student_mean,
+      rank = order(order(student_mean, decreasing = TRUE))
+    ) %&gt;%
+    mutate(mean_student_mean = NULL)
+}
+# Run Function
+mean_score(data)</code></pre>
 </div>
 </div>
 </div>
