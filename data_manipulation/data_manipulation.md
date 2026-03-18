@@ -1576,7 +1576,7 @@ next_week <- today + 7  # Add 7 days
 print(next_week)
 ```
 
-    ## [1] "2026-03-24"
+    ## [1] "2026-03-25"
 
 ``` r
 time_diff <- as.numeric(next_week - today)  # Get difference in days
